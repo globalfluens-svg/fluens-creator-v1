@@ -63,6 +63,20 @@ ulang otomatis, dan perubahannya langsung terlihat karena
 config.js di-set no-store.
 
 ============================================================
+GANTI TEMA GELAP / TERANG
+============================================================
+Di config.js:
+  theme: "dark"    -> latar gelap (bawaan)
+  theme: "light"   -> latar Pasir sesuai panduan brand Fluens
+
+Kalau pindah ke light, ganti juga:
+  accentColor: "#0E7A6E"
+  bgColor:     "#FAF6F0"
+
+Pengguna juga bisa menukar tema sendiri lewat tombol
+matahari/bulan di kanan atas studio.
+
+============================================================
 KALAU MASIH BLANK
 ============================================================
 Tekan F12 > tab Console, lihat pesannya:
@@ -73,7 +87,7 @@ Tekan F12 > tab Console, lihat pesannya:
 
   Muncul tombol "Muat Ulang" setelah 12 detik
      -> index.html tidak lengkap terunggah. Ukurannya harus
-        sekitar 272 KB. Kalau jauh lebih kecil, unggah ulang.
+        sekitar 277 KB. Kalau jauh lebih kecil, unggah ulang.
 
   Halaman kosong tanpa pesan apa pun
      -> cek Vercel: Build Command harus KOSONG. Kalau terisi

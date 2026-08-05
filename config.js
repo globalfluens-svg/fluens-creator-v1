@@ -11,10 +11,13 @@ window.__FLX_CONFIG = {
   tagline:   "Studio Talenta AI",
   logoUrl:   "",                 // kosong = pakai wordmark teks
 
+  /* --- Tampilan --- */
+  theme:        "dark",          // "dark" atau "light"
+
   /* --- Warna (diturunkan otomatis jadi shade) --- */
-  accentColor:  "#0E7A6E",       // Alir
-  accent2Color: "#D9713F",       // Bara
-  bgColor:      "#FAF6F0",       // Pasir
+  accentColor:  "#1FA898",       // Riak — lebih terang, untuk latar gelap
+  accent2Color: "#E08050",       // Bara
+  bgColor:      "#0C0F0E",       // latar gelap. Untuk theme light pakai #FAF6F0
 
   /* --- Custom GPT (WAJIB diisi) --- */
   gptUrlWajah:      "https://chatgpt.com/g/g-XXXXXXXX-fluens-arsitek-wajah",
