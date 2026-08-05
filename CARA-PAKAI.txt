@@ -1,0 +1,81 @@
+FLUENS CREATOR — VERSI SATU BERKAS
+============================================================
+Tidak ada folder sama sekali. Empat berkas, semuanya sejajar.
+Tidak bisa gagal karena struktur folder hilang saat unggah.
+
+ISI:
+  index.html        seluruh aplikasi, CSS & JS sudah di dalam
+  config.js         satu-satunya yang perlu kamu ubah
+  hash-tool.html    pembuat hash password
+  vercel.json       rewrite SPA + config.js no-store
+
+============================================================
+ALUR: GITHUB DULU, BARU VERCEL
+============================================================
+1. Buat repo GitHub BARU dan KOSONG
+   (jangan pakai globalfluens-svg yang lama — isinya sudah
+   campur aduk; hapus atau tinggalkan saja)
+
+2. Klik "Add file" > "Upload files"
+
+3. Pilih KEEMPAT berkas sekaligus.
+   Kali ini boleh pakai tombol "choose your files" — tidak
+   ada folder yang bisa hilang.
+
+4. Commit. Repo harus terlihat persis begini:
+
+     CARA-PAKAI.txt
+     config.js
+     hash-tool.html
+     index.html
+     vercel.json
+
+5. Vercel > Add New > Project > import repo
+     Framework Preset : Other
+     Build Command    : KOSONGKAN
+     Output Directory : KOSONGKAN
+     Root Directory   : KOSONGKAN
+   > Deploy
+
+6. Settings > Domains > tambah subdomain,
+   mis. creator.terapinai.id
+   Lalu tambahkan CNAME ke cname.vercel-dns.com di
+   penyedia domain.
+
+============================================================
+SEBELUM DIJUAL — ISI config.js
+============================================================
+WAJIB:
+  gptUrlWajah        URL Custom GPT Arsitek Wajah
+  gptUrlGaya         URL Custom GPT Penata Gaya
+  gptUrlStoryboard   URL Custom GPT Sutradara Konten
+  paymentUrl         Link checkout Mayar
+  passwordHash       GANTI! Bawaan masih password "fluens"
+
+Cara ganti password:
+  Buka hash-tool.html (klik dua kali, atau buka lewat
+  alamat situsmu /hash-tool.html), ketik password baru,
+  salin hasilnya ke passwordHash di config.js.
+
+config.js bisa diedit LANGSUNG di GitHub setelah tayang.
+Klik file > ikon pensil > ubah > Commit. Vercel deploy
+ulang otomatis, dan perubahannya langsung terlihat karena
+config.js di-set no-store.
+
+============================================================
+KALAU MASIH BLANK
+============================================================
+Tekan F12 > tab Console, lihat pesannya:
+
+  "__FLX_CONFIG is not defined"
+     -> config.js tidak ikut terunggah, atau namanya salah.
+        Harus persis "config.js", huruf kecil semua.
+
+  Muncul tombol "Muat Ulang" setelah 12 detik
+     -> index.html tidak lengkap terunggah. Ukurannya harus
+        sekitar 272 KB. Kalau jauh lebih kecil, unggah ulang.
+
+  Halaman kosong tanpa pesan apa pun
+     -> cek Vercel: Build Command harus KOSONG. Kalau terisi
+        "npm run build", Vercel akan gagal karena tidak ada
+        package.json.

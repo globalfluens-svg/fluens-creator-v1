@@ -1,0 +1,25 @@
+<!doctype html><html lang="id"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Fluens — Pembuat Hash</title>
+<style>
+body{background:#FAF6F0;color:#16130F;font-family:system-ui,sans-serif;padding:48px 20px;line-height:1.6}
+.box{max-width:520px;margin:0 auto}
+h1{font-size:22px;margin:0 0 8px}p{color:#7C766D;font-size:14px;margin-bottom:22px}
+input{width:100%;padding:13px;border:1px solid #E3DCD1;border-radius:12px;background:#fff;font-size:15px;box-sizing:border-box}
+button{width:100%;margin-top:12px;padding:14px;border:0;border-radius:12px;background:#0E7A6E;color:#fff;font-weight:700;font-size:15px;cursor:pointer}
+code{display:block;margin-top:20px;padding:14px;background:#fff;border:1px solid #E3DCD1;border-radius:12px;word-break:break-all;font-size:13px;color:#0E7A6E}
+</style></head><body><div class="box">
+<h1>Pembuat Hash Password</h1>
+<p>Ketik password baru, tekan tombol, salin hasilnya ke <b>passwordHash</b> di <code style="display:inline;padding:2px 6px">/config.js</code>. Salt sudah disamakan dengan config.</p>
+<input id="p" placeholder="password baru" autofocus>
+<button onclick="go()">Buat Hash</button>
+<code id="o">—</code>
+</div><script>
+var SALT = (window.__FLX_CONFIG && window.__FLX_CONFIG.salt) || 'fluens-2026::';
+async function go(){
+  var v=document.getElementById('p').value; if(!v) return;
+  var b=new TextEncoder().encode(SALT+v);
+  var h=await crypto.subtle.digest('SHA-256',b);
+  document.getElementById('o').textContent=[].map.call(new Uint8Array(h),function(x){return x.toString(16).padStart(2,'0')}).join('');
+}
+document.getElementById('p').addEventListener('keydown',function(e){if(e.key==='Enter')go()});
+</script></body></html>
