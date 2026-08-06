@@ -3,7 +3,7 @@ FLUENS CREATOR — VERSI SATU BERKAS
 Tidak ada folder sama sekali. Empat berkas, semuanya sejajar.
 Tidak bisa gagal karena struktur folder hilang saat unggah.
 
-ISI (21 berkas, semuanya sejajar, tanpa folder):
+ISI (33 berkas, semuanya sejajar, tanpa folder):
   index.html        seluruh aplikasi, CSS & JS sudah di dalam
   config.js         satu-satunya yang perlu kamu ubah
   hash-tool.html    pembuat hash password
@@ -13,13 +13,20 @@ ISI (21 berkas, semuanya sejajar, tanpa folder):
   wordmark.svg      wordmark resmi, cadangan
   mata-w-*.webp     7 foto acuan bentuk mata PEREMPUAN
   mata-l-*.webp     7 foto acuan bentuk mata LAKI-LAKI
+  wajah-w-*.webp    7 foto acuan bentuk wajah PEREMPUAN
+  wajah-l-*.webp    6 foto acuan bentuk wajah LAKI-LAKI
+                    (wajah-l-oval.webp belum ada — kalau
+                    Oval + Laki-laki dipilih, panel otomatis
+                    kembali ke gambar siluet. Begitu file
+                    itu ditambahkan, langsung terpakai
+                    tanpa ubah kode)
 
-                    Muncul di Kartu Talenta saat memilih
-                    bentuk mata, dan otomatis berganti
-                    mengikuti Jenis kelamin. Total 14
-                    berkas, ~680 KB. Kalau tidak ikut
-                    terunggah, panel kembali ke gambar
-                    garis tanpa error.
+                    Foto acuan muncul di panel kanan saat
+                    memilih Bentuk mata / Bentuk wajah, dan
+                    otomatis berganti mengikuti Jenis
+                    kelamin. Total 27 berkas, ~845 KB.
+                    Kalau tidak ikut terunggah, panel
+                    kembali ke gambar garis tanpa error.
 
 ============================================================
 ALUR: GITHUB DULU, BARU VERCEL
@@ -30,7 +37,7 @@ ALUR: GITHUB DULU, BARU VERCEL
 
 2. Klik "Add file" > "Upload files"
 
-3. Pilih SEMUA berkas sekaligus (21 berkas).
+3. Pilih SEMUA berkas sekaligus (33 berkas).
    Kali ini boleh pakai tombol "choose your files" — tidak
    ada folder yang bisa hilang.
 
@@ -55,6 +62,19 @@ ALUR: GITHUB DULU, BARU VERCEL
      mata-w-monolid.webp
      mata-w-sipit.webp
      vercel.json
+     wajah-l-bulat.webp
+     wajah-l-diamond.webp
+     wajah-l-hati.webp
+     wajah-l-panjang.webp
+     wajah-l-persegi.webp
+     wajah-l-segitiga.webp
+     wajah-w-bulat.webp
+     wajah-w-diamond.webp
+     wajah-w-hati.webp
+     wajah-w-oval.webp
+     wajah-w-panjang.webp
+     wajah-w-persegi.webp
+     wajah-w-segitiga.webp
      wordmark.svg
 
 5. Vercel > Add New > Project > import repo
@@ -114,7 +134,7 @@ Tekan F12 > tab Console, lihat pesannya:
 
   Muncul tombol "Muat Ulang" setelah 12 detik
      -> index.html tidak lengkap terunggah. Ukurannya harus
-        sekitar 299 KB. Kalau jauh lebih kecil, unggah ulang.
+        sekitar 300 KB. Kalau jauh lebih kecil, unggah ulang.
 
   Halaman kosong tanpa pesan apa pun
      -> cek Vercel: Build Command harus KOSONG. Kalau terisi
