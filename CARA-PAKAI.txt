@@ -3,7 +3,7 @@ FLUENS CREATOR — VERSI SATU BERKAS
 Tidak ada folder sama sekali. Empat berkas, semuanya sejajar.
 Tidak bisa gagal karena struktur folder hilang saat unggah.
 
-ISI (6 berkas, semuanya sejajar, tanpa folder):
+ISI (13 berkas, semuanya sejajar, tanpa folder):
   index.html        seluruh aplikasi, CSS & JS sudah di dalam
   config.js         satu-satunya yang perlu kamu ubah
   hash-tool.html    pembuat hash password
@@ -11,6 +11,13 @@ ISI (6 berkas, semuanya sejajar, tanpa folder):
   logo.svg          ikon merek resmi (untuk pratinjau tautan
                     di WhatsApp, Facebook, X)
   wordmark.svg      wordmark resmi, cadangan
+  mata-almond.webp  \
+  mata-bulat.webp    |
+  mata-hooded.webp   |  foto acuan bentuk mata yang muncul
+  mata-monolid.webp  |  di Kartu Talenta saat memilih bentuk
+  mata-dalam.webp    |  mata. Total 7 berkas, ~331 KB.
+  mata-menonjol.webp |  Kalau tidak ikut terunggah, panel
+  mata-sipit.webp   /   otomatis kembali ke gambar garis.
 
 ============================================================
 ALUR: GITHUB DULU, BARU VERCEL
@@ -21,7 +28,7 @@ ALUR: GITHUB DULU, BARU VERCEL
 
 2. Klik "Add file" > "Upload files"
 
-3. Pilih KEENAM berkas sekaligus.
+3. Pilih SEMUA berkas sekaligus (13 berkas).
    Kali ini boleh pakai tombol "choose your files" — tidak
    ada folder yang bisa hilang.
 
@@ -32,6 +39,13 @@ ALUR: GITHUB DULU, BARU VERCEL
      hash-tool.html
      index.html
      logo.svg
+     mata-almond.webp
+     mata-bulat.webp
+     mata-dalam.webp
+     mata-hooded.webp
+     mata-menonjol.webp
+     mata-monolid.webp
+     mata-sipit.webp
      vercel.json
      wordmark.svg
 
