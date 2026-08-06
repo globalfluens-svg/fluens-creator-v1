@@ -92,7 +92,7 @@ Tekan F12 > tab Console, lihat pesannya:
 
   Muncul tombol "Muat Ulang" setelah 12 detik
      -> index.html tidak lengkap terunggah. Ukurannya harus
-        sekitar 298 KB. Kalau jauh lebih kecil, unggah ulang.
+        sekitar 299 KB. Kalau jauh lebih kecil, unggah ulang.
 
   Halaman kosong tanpa pesan apa pun
      -> cek Vercel: Build Command harus KOSONG. Kalau terisi

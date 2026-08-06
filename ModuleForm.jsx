@@ -121,15 +121,15 @@ function MultiSelect({ field, value, onChange }) {
 function Range({ field, value, onChange }) {
   return (
     <>
-      <div className="mb-1.5 flex items-baseline justify-between">
-        <span className="field-label mb-0">{field.label}</span>
-        <span className="font-mono text-[12px] text-accent">{field.fmt(value)}</span>
+      <div className="mb-1 flex items-baseline justify-between gap-2">
+        <span className="text-[12.5px] font-semibold leading-[1.35] text-text">{field.label}</span>
+        <span className="shrink-0 font-mono text-[12px] text-accent">{field.fmt(value)}</span>
       </div>
       <input type="range" className="rng" min={field.min} max={field.max} value={value}
         aria-label={field.label} onChange={(e) => onChange(Number(e.target.value))} />
       {field.ends && (
-        <div className="mt-0.5 flex justify-between text-[11.5px] text-text-dim">
-          <span>{field.ends[0]}</span><span>{field.ends[1]}</span>
+        <div className="mt-0.5 flex justify-between gap-3 text-[11px] leading-tight text-text-dim">
+          <span>{field.ends[0]}</span><span className="text-right">{field.ends[1]}</span>
         </div>
       )}
     </>
@@ -144,41 +144,52 @@ function Field({ field, state, set, onTouch, control }) {
   const after = field.after ? field.after(state) : '';
   const pakaiSelect = control === 'select';
 
-  const lebar = pakaiSelect
-    ? field.t === 'area' || field.t === 'range'
-    : field.t === 'area' || field.t === 'range' || (field.options && field.options.length >= 8);
+  /* lebar kolom: area selalu penuh; pill panjang butuh dua kolom */
+  const span = field.t === 'area'
+    ? 'md:col-span-2 xl:col-span-3'
+    : !pakaiSelect && (field.t === 'range' || (field.options && field.options.length >= 8))
+      ? 'md:col-span-2'
+      : '';
 
   return (
-    <div className={lebar ? 'md:col-span-2' : ''}>
+    <div className={`flex h-full flex-col ${span}`}>
       {field.t !== 'range' && (
-        <label className="field-label">
-          {field.label}
-          {field.note && <i className="field-note not-italic"> — {field.note}</i>}
-        </label>
+        <div className={pakaiSelect ? 'mb-2 min-h-[40px]' : 'mb-2'}>
+          <label className="block text-[12.5px] font-semibold leading-[1.35] text-text">
+            {field.label}
+          </label>
+          {field.note && (
+            <span className="mt-0.5 block text-[11.5px] leading-[1.35] text-text-dim">
+              {field.note}
+            </span>
+          )}
+        </div>
       )}
 
-      {field.t === 'range' && <Range field={field} value={value} onChange={onChange} />}
+      <div className="mt-auto">
+        {field.t === 'range' && <Range field={field} value={value} onChange={onChange} />}
 
-      {field.t === 'radio' && (pakaiSelect
-        ? <Select field={field} value={value} onChange={onChange} state={state} />
-        : <Pills field={field} value={value} onChange={onChange} state={state} />)}
+        {field.t === 'radio' && (pakaiSelect
+          ? <Select field={field} value={value} onChange={onChange} state={state} />
+          : <Pills field={field} value={value} onChange={onChange} state={state} />)}
 
-      {field.t === 'multi' && (pakaiSelect
-        ? <MultiSelect field={field} value={value} onChange={onChange} />
-        : <Pills field={field} value={value} onChange={onChange} state={state} />)}
+        {field.t === 'multi' && (pakaiSelect
+          ? <MultiSelect field={field} value={value} onChange={onChange} />
+          : <Pills field={field} value={value} onChange={onChange} state={state} />)}
 
-      {field.t === 'text' && (
-        <input type="text" className="inp" value={value || ''} placeholder={field.ph || ''}
-          onChange={(e) => onChange(e.target.value)} />
-      )}
+        {field.t === 'text' && (
+          <input type="text" className="inp" value={value || ''} placeholder={field.ph || ''}
+            onChange={(e) => onChange(e.target.value)} />
+        )}
 
-      {field.t === 'area' && (
-        <textarea className="inp resize-y" style={{ minHeight: field.tall ? 150 : 82 }}
-          value={value || ''} placeholder={field.ph || ''} onChange={(e) => onChange(e.target.value)} />
-      )}
+        {field.t === 'area' && (
+          <textarea className="inp resize-y" style={{ minHeight: field.tall ? 150 : 88 }}
+            value={value || ''} placeholder={field.ph || ''} onChange={(e) => onChange(e.target.value)} />
+        )}
+      </div>
 
-      {after && <p className="mt-2 text-[12.5px] text-text-dim">{after}</p>}
-      {warn && <p className="mt-2 text-[12.5px] text-accent2">{warn}</p>}
+      {after && <p className="mt-2 text-[11.5px] leading-[1.45] text-text-dim">{after}</p>}
+      {warn && <p className="mt-2 text-[11.5px] leading-[1.45] text-accent2">{warn}</p>}
     </div>
   );
 }
@@ -221,7 +232,7 @@ export default function ModuleForm({ spec, state, set, extras, onTouch }) {
               </div>
             )}
 
-            <div className={`grid gap-x-5 gap-y-4 ${kolom}`}>
+            <div className={`grid items-stretch gap-x-6 gap-y-6 ${kolom}`}>
               {sec.fields.map((f) => (
                 <Field key={f.k} field={f} state={state} set={set} onTouch={onTouch} control={control} />
               ))}
