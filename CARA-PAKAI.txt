@@ -3,11 +3,14 @@ FLUENS CREATOR — VERSI SATU BERKAS
 Tidak ada folder sama sekali. Empat berkas, semuanya sejajar.
 Tidak bisa gagal karena struktur folder hilang saat unggah.
 
-ISI:
+ISI (6 berkas, semuanya sejajar, tanpa folder):
   index.html        seluruh aplikasi, CSS & JS sudah di dalam
   config.js         satu-satunya yang perlu kamu ubah
   hash-tool.html    pembuat hash password
   vercel.json       rewrite SPA + config.js no-store
+  logo.svg          ikon merek resmi (untuk pratinjau tautan
+                    di WhatsApp, Facebook, X)
+  wordmark.svg      wordmark resmi, cadangan
 
 ============================================================
 ALUR: GITHUB DULU, BARU VERCEL
@@ -18,7 +21,7 @@ ALUR: GITHUB DULU, BARU VERCEL
 
 2. Klik "Add file" > "Upload files"
 
-3. Pilih KEEMPAT berkas sekaligus.
+3. Pilih KEENAM berkas sekaligus.
    Kali ini boleh pakai tombol "choose your files" — tidak
    ada folder yang bisa hilang.
 
@@ -28,7 +31,9 @@ ALUR: GITHUB DULU, BARU VERCEL
      config.js
      hash-tool.html
      index.html
+     logo.svg
      vercel.json
+     wordmark.svg
 
 5. Vercel > Add New > Project > import repo
      Framework Preset : Other
@@ -87,7 +92,7 @@ Tekan F12 > tab Console, lihat pesannya:
 
   Muncul tombol "Muat Ulang" setelah 12 detik
      -> index.html tidak lengkap terunggah. Ukurannya harus
-        sekitar 294 KB. Kalau jauh lebih kecil, unggah ulang.
+        sekitar 298 KB. Kalau jauh lebih kecil, unggah ulang.
 
   Halaman kosong tanpa pesan apa pun
      -> cek Vercel: Build Command harus KOSONG. Kalau terisi

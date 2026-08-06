@@ -9,14 +9,20 @@ window.__FLX_CONFIG = {
   /* --- Identitas --- */
   brandName: "Fluens Creator",
   tagline:   "Studio Talenta AI",
-  logoUrl:   "",                 // kosong = pakai wordmark teks
+  logoUrl:   "",                 // kosong = pakai ikon merek bawaan
 
   /* --- Tampilan --- */
   theme:        "dark",          // "dark" atau "light"
 
-  /* --- Warna (diturunkan otomatis jadi shade) --- */
-  accentColor:  "#1FA898",       // Riak — lebih terang, untuk latar gelap
-  accent2Color: "#E08050",       // Bara
+  /* --- Warna resmi Fluens (jangan diubah tanpa alasan) ---
+     Alir   #0E7A6E   hijau utama
+     Riak   #1FA898   hijau terang
+     Rumpun #0B5F57   hijau tergelap
+     Bara   #D9713F   oranye aksen
+     Pasir  #FAF6F0   latar terang
+     Tinta  #16130F   teks gelap                                    */
+  accentColor:  "#1FA898",       // Riak — untuk latar gelap
+  accent2Color: "#D9713F",       // Bara
   bgColor:      "#0C0F0E",       // latar gelap. Untuk theme light pakai #FAF6F0
 
   /* --- Custom GPT (WAJIB diisi) --- */
