@@ -26,7 +26,7 @@ window.__FLX_CONFIG = {
   bgColor:      "#0C0F0E",       // latar gelap. Untuk theme light pakai #FAF6F0
 
   /* --- Custom GPT (WAJIB diisi) --- */
-  gptUrlWajah:      "https://chatgpt.com/g/g-XXXXXXXX-fluens-arsitek-wajah",
+  gptUrlWajah:      "https://chatgpt.com/g/g-6a6da57b7f1481918f990d51dfa75f14-fluens-arsitek-wajah",
   gptUrlGaya:       "https://chatgpt.com/g/g-XXXXXXXX-fluens-penata-gaya",
   gptUrlStoryboard: "https://chatgpt.com/g/g-XXXXXXXX-fluens-sutradara-konten",
 
