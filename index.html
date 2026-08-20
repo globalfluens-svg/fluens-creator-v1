@@ -881,6 +881,20 @@ ${tuasMeleset.map((x) => '  ' + x).join('\n')}
     O.tleher[e.tleher],
     O.kdalam[e.kdalam],
     O.kunder[e.kunder],
+    /* Kesebelas keputusan bentuk. Tanpa baris ini model memperlakukan daftar di
+       atas sebagai daftar LENGKAP dan membuang blok 6 dari MD — di uji Sani
+       sembilan dari sebelas hilang dari keempat belas prompt. */
+    O.bwajah[e.bwajah],
+    O.bpipi[e.bpipi],
+    O.bmata[e.bmata],
+    O.umata[e.umata],
+    O.balis[e.balis],
+    O.talis[e.talis],
+    O.hbatang[e.hbatang],
+    O.hujung[e.hujung],
+    O.hsayap[e.hsayap],
+    O.bbibir[e.bbibir],
+    O.bdagu[e.bdagu],
   ].filter(Boolean);
 
   const wajib = [
@@ -1121,10 +1135,11 @@ BLOK 3 \u2014 SET EKSPRESI, ENAM PROMPT
 DAFTAR PERIKSA MASTER DESCRIPTOR \u2014 frasa di bawah ini WAJIB ada di blok 12,
 diketik ulang persis, dan karena itu ikut ke keempat belas prompt. Cocokkan satu
 per satu sebelum melanjutkan; frasa yang tidak ada di MD tidak mungkin sampai ke
-gambar.
+gambar. Ini daftar WAJIB, bukan daftar LENGKAP \u2014 Master Descriptor tetap harus
+menceritakan wajahnya sebagai paragraf utuh, bukan sekadar merangkai daftar ini.
 ${daftarMD.map((x) => '  \u2610 ' + x).join('\n')}
 
-BENTUK MASTER DESCRIPTOR \u2014 satu paragraf Inggris yang mengalir, 90\u2013110 kata,
+BENTUK MASTER DESCRIPTOR \u2014 satu paragraf Inggris yang mengalir, 150\u2013180 kata,
 jumlah katanya ditulis di judul. Prosa, BUKAN daftar tag atau garis miring:
   SALAH : heart-shaped face/FWHR 1.88, vertical forehead/pronounced brow ridge,
           small monolid eyes/+2\u00b0 canthal tilt; thin upward brows
@@ -1133,6 +1148,11 @@ jumlah katanya ditulis di judul. Prosa, BUKAN daftar tag atau garis miring:
           +2\u00b0 canthal tilt, thin brows sweeping upward toward the tail
 Membuang kata sandang dan anak kalimat membuat model gambar jauh kurang patuh.
 
+PEMBUKA PROMPT \u2014 setiap prompt dibuka persis begini:
+  A candid editorial photograph of ${pembuka}
+Master Descriptor sudah dimulai dengan kata sandang, jadi pembukanya berhenti di
+"of" \u2014 menulis "of a" menghasilkan "of a a 22-year-old".
+
 KETIDAKSEMPURNAAN KAMERA \u2014 satu frasa ini, SAMA di keempat belas prompt,
 ditaruh di kalimat terakhir:
   ${U.kameraCacat}
@@ -1140,7 +1160,7 @@ Jangan mengarang frasa berbeda per prompt, dan jangan menyebut bagian tubuh yang
 tidak ada di bingkai (tangan atau celana pada foto kepala-bahu).
 
 JUDUL BLOK 12\u201316 \u2014 persis begini, tidak diganti:
-  12 MASTER DESCRIPTOR (<jumlah> kata) \u00b7 13 PROMPT MASTER \u00b7 14 KUNCI KONSISTENSI
+  12 MASTER DESCRIPTOR (<jumlah> kata, 150\u2013180) \u00b7 13 PROMPT MASTER \u00b7 14 KUNCI KONSISTENSI
   15 SKOR KEUNIKAN & CATATAN ETIS \u00b7 16 BERKAS UNDUHAN
 
 BLOK 14 \u2014 tiga baris:
@@ -1179,7 +1199,7 @@ LEMBAR PNG \u2014 EMPAT bagian, tidak lebih. Tanpa tabel spesifikasi.
   Empat belas foto wajib terpasang semua. Blok 5\u201315 dan teks prompt TIDAK di
   lembar \u2014 tempatnya PDF. Kaki lembar: nama kedua berkas lalu label AI-generated.
 
-ANGGARAN KATA PROMPT \u2014 maks 215 kata; prompt 06, 07, 08 maks 265 kata.
+ANGGARAN KATA PROMPT \u2014 maks 290 kata; prompt 06, 07, 08 maks 340 kata.\nAngka ini mengikuti Master Descriptor 150\u2013180 kata. Jangan memangkas frasa\ndari daftar periksa untuk mengejar angka yang lebih kecil.
 
 PERIKSA SEBELUM MEMBUAT BERKAS — kalau satu saja meleset, kamu salah tokoh:
 1. Kode DNA = ${mn(e)}
