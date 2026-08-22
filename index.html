@@ -834,7 +834,7 @@ ${tuasMeleset.map((x) => '  ' + x).join('\n')}
       : '') +
     (Xe(e)
       ? `, wearing ${Om[e.hijab] || 'a hijab'}${warnaHijab ? ` in ${warnaHijab}` : ''}` +
-        `${(Om[e.hijab] || '').includes('forehead') ? '' : `, ${Fz7[e.hijab] || 'wrapped to reveal the forehead'}`}` +
+        `${/forehead|sewn edge|fabric weight/.test(Om[e.hijab] || '') ? '' : `, ${Fz7[e.hijab] || 'wrapped to reveal the forehead'}`}` +
         `, ${Fz8[e.hijab] || 'the fabric falling at the cheeks'}`
       : '') +
     ',';
