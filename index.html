@@ -1140,13 +1140,26 @@ menceritakan wajahnya sebagai paragraf utuh, bukan sekadar merangkai daftar ini.
 ${daftarMD.map((x) => '  \u2610 ' + x).join('\n')}
 
 BENTUK MASTER DESCRIPTOR \u2014 satu paragraf Inggris yang mengalir, 150\u2013180 kata,
-jumlah katanya ditulis di judul. Prosa, BUKAN daftar tag atau garis miring:
-  SALAH : heart-shaped face/FWHR 1.88, vertical forehead/pronounced brow ridge,
-          small monolid eyes/+2\u00b0 canthal tilt; thin upward brows
-  BENAR : a heart-shaped face with an FWHR of 1.88, a vertical forehead over a
-          pronounced brow ridge, small monolid eyes with no visible crease and a
-          +2\u00b0 canthal tilt, thin brows sweeping upward toward the tail
-Membuang kata sandang dan anak kalimat membuat model gambar jauh kurang patuh.
+jumlah katanya ditulis di judul. Kalimat, BUKAN daftar. Tiga bentuk terlarang:
+  SALAH (tag)    : heart-shaped face/FWHR 1.88, vertical forehead/pronounced brow
+                   ridge, small monolid eyes/+2\u00b0 canthal tilt; thin upward brows
+  SALAH (rantai) : a heart-shaped face\u2014high cheekbones\u2014hooded eyes\u2014small
+                   relative to the face\u2014thin brows\u2014fair skin\u2014true black hair
+  SALAH (label)  : "Identity markers:", "Skin shows", "Hair grows as", "Body:"
+                   \u2014 label Inggris tetap label, sama terlarangnya dengan label
+                   Indonesia. Prompt tidak boleh memuat judul bagian.
+  BENAR          : a heart-shaped face with an FWHR of 1.88, wide at the temples
+                   and narrowing to a pointed chin, over high cheekbones that
+                   project laterally, with small hooded eyes where the upper lid
+                   skin partly covers the crease, and thin brows sloping downward
+                   toward the tail
+Menyalin daftar periksa apa adanya lalu menyambungnya dengan tanda pisah BUKAN
+paragraf \u2014 itu daftar yang dicat ulang. Rangkai jadi kalimat: gabungkan ukuran
+dan ketebalan ke fiturnya ("small hooded eyes", bukan "hooded eyes \u2014 small
+relative to the face"), pakai kata sambung, biarkan kalimatnya mengalir.
+HITUNG KATANYA SEBELUM MELANJUTKAN. Kalau di luar 150\u2013180, tulis ulang
+paragrafnya sekarang juga \u2014 jangan lanjut ke blok 13 dengan angka yang meleset,
+dan jangan sekadar melaporkan angkanya di akhir balasan.
 
 PEMBUKA PROMPT \u2014 setiap prompt dibuka persis begini:
   A candid editorial photograph of ${pembuka}
@@ -1198,8 +1211,17 @@ LEMBAR PNG \u2014 EMPAT bagian, tidak lebih. Tanpa tabel spesifikasi.
     Peran \u00b7 Industri / niche \u00b7 Kuadran casting \u00b7 Kesan target \u00b7 Kanal
   Empat belas foto wajib terpasang semua. Blok 5\u201315 dan teks prompt TIDAK di
   lembar \u2014 tempatnya PDF. Kaki lembar: nama kedua berkas lalu label AI-generated.
+  Label foto memakai nama di tabel blok 2 dan blok 3 di atas, PERSIS. DILARANG
+  menambah angle Atas, Bawah, Belakang, atau Profil kiri & kanan terpisah, dan
+  DILARANG menambah panel detail fitur (Mata, Bibir, Telinga, Rambut) \u2014 tujuh
+  angle itu sudah tetap, menambah satu berarti membuang salah satu yang wajib.
+  DILARANG mengganti nama ekspresi jadi "Senyum tipis", "Alis kiri terangkat",
+  "Tatapan serius", atau "Tertawa kecil". Kartu identitas disalin dari blok 4,
+  tidak diringkas dan tidak ditulis ulang. Foto dipotong dari keempat belas berkas
+  yang sudah disimpan \u2014 kalau di dalam sebuah foto masih terlihat bilah judul
+  atau label panel, itu tangkapan layar lembar lain dan harus diganti.
 
-ANGGARAN KATA PROMPT \u2014 maks 290 kata; prompt 06, 07, 08 maks 340 kata.\nAngka ini mengikuti Master Descriptor 150\u2013180 kata. Jangan memangkas frasa\ndari daftar periksa untuk mengejar angka yang lebih kecil.
+ANGGARAN KATA PROMPT \u2014 maks 290 kata; prompt 06, 07, 08 maks 360 kata.\nAngka ini mengikuti Master Descriptor 150\u2013180 kata. Jangan memangkas frasa\ndari daftar periksa untuk mengejar angka yang lebih kecil.
 
 PERIKSA SEBELUM MEMBUAT BERKAS — kalau satu saja meleset, kamu salah tokoh:
 1. Kode DNA = ${mn(e)}
