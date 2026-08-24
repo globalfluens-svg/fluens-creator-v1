@@ -1706,6 +1706,17 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
     hint: 'Kunci satu latar untuk seluruh set look — latar yang berganti-ganti mengubah cara kulit dan kain terbaca, dan tokohnya jadi terlihat beda orang. Pilih Studio seamless kalau tujuannya katalog look; pilih lokasi kalau look-nya langsung dipakai jadi konten.',
     fields: [
       {
+        k: 'modeLatar',
+        t: 'radio',
+        l: 'Mode latar',
+        note: 'menentukan dari mana latar & pencahayaan ditetapkan',
+        def: 0,
+        o: [
+          ['sendiri', 'Atur sendiri'],
+          ['referensi', 'Pakai foto referensi'],
+        ],
+      },
+      {
         k: 'sudut',
         t: 'radio',
         l: 'Sudut pengambilan',
@@ -1724,6 +1735,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
         l: 'Preset gaya foto',
         note: 'kalau dipilih, MENGGANTIKAN gaya pengambilan, pencahayaan, dan latar tempat — ketiganya disembunyikan',
         def: 0,
+        show: (e) => e.modeLatar !== 'referensi',
         o: [
           ['tanpa', '— tanpa preset —'],
           ['p1', '1 Selfie apartemen · selfie'],
@@ -1740,7 +1752,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
         l: 'Gaya pengambilan',
         note: 'dipakai kalau tidak memilih preset',
         def: 1,
-        show: (e) => e.preset === 'tanpa',
+        show: (e) => e.modeLatar === 'referensi' || e.preset === 'tanpa',
         o: [
           ['editorialA', 'Editorial terkontrol'],
           ['candid', 'Candid dokumenter'],
@@ -1755,7 +1767,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
         t: 'radio',
         l: 'Latar tempat',
         def: 1,
-        show: (e) => e.preset === 'tanpa',
+        show: (e) => e.modeLatar !== 'referensi' && e.preset === 'tanpa',
         o: [
           ['studio', 'Studio seamless'],
           ['kamar', 'Kamar'],
@@ -1783,7 +1795,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
         l: 'Tema interior',
         note: 'muncul kalau latar = Ruang tamu',
         def: 0,
-        show: (e) => e.preset === 'tanpa' && e.latar === 'ruangtamu',
+        show: (e) => e.modeLatar !== 'referensi' && e.preset === 'tanpa' && e.latar === 'ruangtamu',
         o: [
           ['japandi', 'Japandi'],
           ['midcentury', 'Mid-century modern'],
@@ -1798,7 +1810,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
         t: 'radio',
         l: 'Pencahayaan',
         def: 1,
-        show: (e) => e.preset === 'tanpa',
+        show: (e) => e.modeLatar !== 'referensi' && e.preset === 'tanpa',
         o: [
           ['studioC', 'Studio terkontrol'],
           ['pagi', 'Jendela pagi'],
@@ -1882,7 +1894,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
   },
 ];
 const bc={id:"m2",tab:"02 · TAMPILAN",title:["Atur seluruh ","identitas visual",", dari gaya dan busana sampai material, rias, latar, dan pencahayaan, agar setiap look terasa konsisten."],control:"select",panelTitle:"Brief Style",ctaLabel:"Buka di TAMPILAN",sections:vc(fs)},gs=()=>xc(fs);
-const KODE_GERBANG = 'GAYA-C4TN-8W26';
+const KODE_GERBANG = 'GAYA-D8HR-5K41';
 
 /* Dua frasa tanda kehidupan yang disuntik di mode referensi — tidak
    terbaca dari foto, dan pilihannya tidak kritis, jadi tanpa UI. */
@@ -2062,22 +2074,62 @@ function blokSendiri(f) {
   );
 }
 
+function blokGambar(f) {
+  var ref = f.mode_v === 'referensi',
+    refL = f.modeLatar_v === 'referensi';
+  if (!ref && !refL) return '';
+  var jml = 1 + (ref ? 1 : 0) + (refL ? 1 : 0);
+  return (
+    (jml === 2 ? 'DUA' : 'TIGA') + ' GAMBAR DI CHAT INI — PERANNYA BERBEDA. JANGAN DITUKAR.\n' +
+    'Gambar KANON      : sumber identitas. Ambil wajah, kulit + undertone,\n' +
+    '                    rambut, bahu, leher. JANGAN ambil busana maupun\n' +
+    '                    latarnya.\n' +
+    (ref
+      ? 'Gambar BUSANA     : sumber padu padan. Ambil potongan, lapisan, panjang,\n' +
+        '                    garis leher, siluet, warna. JANGAN ambil wajah, tubuh,\n' +
+        '                    warna kulit, rambut, usia, jenis kelamin, teks, logo,\n' +
+        '                    maupun latarnya.\n'
+      : '') +
+    (refL
+      ? 'Gambar LATAR      : sumber tempat dan cahaya. Ambil jenis ruang, material\n' +
+        '                    dan warna permukaan, arah serta sifat cahaya. JANGAN\n' +
+        '                    ambil orang, wajah, busana, teks, logo, atau merek yang\n' +
+        '                    terlihat di dalamnya. Kalau ada orang di gambar itu,\n' +
+        '                    abaikan sepenuhnya.\n'
+      : '') +
+    'Tidak satu kata pun di Master Descriptor boleh berasal dari gambar selain\n' +
+    'KANON. Kalau jumlah gambar di chat ini bukan ' + jml + ', berhenti dan sebutkan\n' +
+    'yang mana yang kurang atau berlebih.\n\n'
+  );
+}
+
+function blokLatarReferensi(f) {
+  return (
+    'LANGKAH 0L — SALIN LATAR JADI TEKS SEBELUM MENYUSUN LOOK\n' +
+    'Tulis satu kalimat Inggris yang mendeskripsikan RUANG di gambar LATAR\n' +
+    'sebagai latar belakang foto orang. Sebut: jenis tempat, material dan warna\n' +
+    'permukaan utama, sumber cahaya, dan apa yang terlihat di kedalaman bingkai.\n' +
+    'Akhiri dengan keterangan bahwa latarnya jatuh di luar fokus.\n' +
+    'Tanpa orang, tanpa busana, tanpa teks atau logo yang terbaca.\n' +
+    'Kalimat itu jadi LATAR FINAL. Setelah ditulis, jangan lihat gambarnya lagi.\n' +
+    'Tulis kalimat ini di blok 6 baris "Latar tempat".\n\n' +
+    'PENCAHAYAAN — DIBACA DARI GAMBAR LATAR YANG SAMA\n' +
+    'Sebut arah cahaya, kekerasan bayangan, dan suhu warnanya dalam satu frasa\n' +
+    'Inggris. Kalau cahaya di gambar itu rata dan tanpa arah, tulis apa adanya —\n' +
+    'jangan menambah cahaya yang tidak ada di sana.\n\n' +
+    'LATAR FINAL dan pencahayaannya dipakai IDENTIK di semua look. Kalau berganti\n' +
+    'di tengah set, suhu warna dan kulit ikut bergeser dan tokohnya terbaca\n' +
+    'seperti orang lain.\n'
+  );
+}
+
 function blokReferensi(f) {
   var t = (f.bahanCad_v || []).map(function (r) { return Q.bahan[r]; }),
     n = TANDA_OTOMATIS.map(function (r) { return Q.tanda[r]; });
   return (
-    'DUA GAMBAR DI CHAT INI — PERANNYA BERBEDA. JANGAN DITUKAR.\n' +
-    'Gambar KANON     : sumber identitas. Ambil wajah, kulit + undertone,\n' +
-    '                   rambut, bahu, leher. JANGAN ambil busananya.\n' +
-    'Gambar REFERENSI : sumber padu padan. Ambil potongan, lapisan, panjang,\n' +
-    '                   garis leher, siluet, warna. JANGAN ambil wajah, tubuh,\n' +
-    '                   warna kulit, rambut, usia, jenis kelamin, teks, logo.\n' +
-    'Tidak satu kata pun di Master Descriptor boleh berasal dari gambar\n' +
-    'REFERENSI. Kalau di chat ini cuma ada satu gambar, berhenti dan\n' +
-    'sebutkan yang mana yang kurang.\n\n' +
-    'LANGKAH 0 — SALIN REFERENSI JADI TEKS SEBELUM MENYUSUN LOOK\n' +
+    'LANGKAH 0 — SALIN REFERENSI BUSANA JADI TEKS SEBELUM MENYUSUN LOOK\n' +
     'Tulis satu kalimat Inggris yang mendeskripsikan outfit di gambar\n' +
-    'REFERENSI, urut: luaran → atasan → bawahan → kaus kaki → alas kaki.\n' +
+    'BUSANA, urut: luaran → atasan → bawahan → kaus kaki → alas kaki.\n' +
     'Sebut potongan, panjang, dan warna tiap potongan. Tanpa wajah, tanpa\n' +
     'tubuh, tanpa merek.\n' +
     'Kalimat itu jadi REFERENSI FINAL. Setelah ditulis, jangan lihat\n' +
@@ -2085,8 +2137,8 @@ function blokReferensi(f) {
     'Bagian yang tidak terlihat di foto ditulis [tidak terlihat]. Jangan\n' +
     'menebak; pakai nilai cadangan di bawah.\n' +
     'Tulis kalimat ini sebagai baris pertama blok 8, sebelum LOOK 1.\n\n' +
-    'PALET KAPSUL — DIAMBIL DARI GAMBAR REFERENSI\n' +
-    'Sebut 4–5 warna yang benar-benar ada di outfit referensi, dalam bahasa\n' +
+    'PALET KAPSUL — DIAMBIL DARI GAMBAR BUSANA\n' +
+    'Sebut 4–5 warna yang benar-benar ada di outfit di gambar BUSANA, dalam bahasa\n' +
     'Inggris (mis. charcoal, off-white, rust, mid-grey).\n' +
     'Ini palet untuk SELURUH set. Look berikutnya memakai warna yang sama\n' +
     'dengan proporsi berbeda — bukan warna baru. Kalau warnanya lebih dari\n' +
@@ -2123,6 +2175,8 @@ function blokHijab() {
 
 function Df(f) {
   var ref = f.mode_v === 'referensi';
+  var refL = f.modeLatar_v === 'referensi';
+  var pakaiPreset = f.preset_v !== 'tanpa' && !refL;
   var a = f.asli_v.map(function (r) { return Q.asli[r]; });
   var jml = parseInt(f.jumlah_v, 10) || 5;
   var muslim =
@@ -2145,7 +2199,8 @@ Kuadran casting : ` + f.kuadran + `
   → arah wardrobe: ` + Q.kuadran[f.kuadran_v] + `
 
 ` + blokTokoh(f) + `
-` + kepalaRekom(f) + `
+` + blokGambar(f) +
+    kepalaRekom(f) + `
 ` + (ref ? blokReferensi(f) : blokSendiri(f)) +
     (ref ? (f.hijab_v === 'ya' ? blokHijab() : '') : (muslim ? blokHijab() : '')) + `
 RIAS & AKSESORI
@@ -2171,7 +2226,7 @@ LATAR & PENGAMBILAN — dipakai IDENTIK di semua look, jangan diganti di tengah 
     hampir selalu memicu pose selfie — larangan ini yang menahannya.
 `
       : '') +
-    (f.preset_v !== 'tanpa'
+    (pakaiPreset
       ? '- PRESET GAYA FOTO : ' + f.preset + `
   → ` + Q.preset[f.preset_v] + `
   Preset ini MENGGANTIKAN gaya pengambilan, pencahayaan, DAN latar tempat.
@@ -2191,7 +2246,9 @@ LATAR & PENGAMBILAN — dipakai IDENTIK di semua look, jangan diganti di tengah 
       : '- Gaya pengambilan : ' + f.ambil + `
                      → ` + Q.ambil[f.ambil_v] + `
 `) +
-    (f.preset_v === 'tanpa'
+    (refL
+      ? blokLatarReferensi(f)
+      : !pakaiPreset
       ? '- Latar tempat  : ' + f.latar + ' → ' + Q.latar[f.latar_v] +
         (f.latar_v === 'ruangtamu'
           ? '\n  → tema interior : ' + f.interior + ' — ' + Q.interior[f.interior_v]
