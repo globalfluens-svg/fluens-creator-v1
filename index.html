@@ -1322,7 +1322,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
         l: 'Tokoh berhijab',
         note: 'foto referensi tidak membawa informasi ini — wajib dinyatakan',
         def: 1,
-        show: (e) => e.mode === 'referensi',
+        show: (e) => e.mode === 'referensi' || e.arah === 'manual',
         o: [
           ['ya', 'Ya'],
           ['tidak', 'Tidak'],
@@ -1397,6 +1397,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
           ['mmodern', 'Muslim modern'],
           ['mkasual', 'Muslim kasual'],
           ['editorial', 'Editorial'],
+          ['manual', '— isi manual —'],
         ],
       },
       {
@@ -1465,7 +1466,57 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
           ['pastel', 'Pastel'],
           ['bold', 'Bold kontras'],
           ['brand', 'Warna brand sebagai aksen'],
+          ['manual', '— isi manual —'],
+          ['rekom', '— rekomendasikan —'],
         ],
+      },
+      {
+        k: 'arahM',
+        t: 'area',
+        l: 'Gaya busana (manual)',
+        note: 'ditulis apa adanya ke brief — pakai istilah yang jelas',
+        ph: 'mis. kemeja kerja lengan panjang digulung, celana bahan',
+        show: (e) => e.mode !== 'referensi' && e.arah === 'manual',
+      },
+      {
+        k: 'paletM',
+        t: 'area',
+        l: 'Palet warna (manual)',
+        note: 'ditulis apa adanya ke brief — pakai istilah yang jelas',
+        ph: 'mis. off-white, olive tua, tan, charcoal, terakota (aksen)',
+        show: (e) => e.mode !== 'referensi' && e.palet === 'manual',
+      },
+      {
+        k: 'bahanM',
+        t: 'area',
+        l: 'Material busana (manual)',
+        note: 'ditulis apa adanya ke brief — pakai istilah yang jelas',
+        ph: 'mis. katun ringan, rayon, denim tipis',
+        show: (e) => e.mode !== 'referensi' && (e.bahan || []).indexOf('manual') > -1,
+      },
+      {
+        k: 'leherM',
+        t: 'area',
+        l: 'Garis leher (manual)',
+        note: 'ditulis apa adanya ke brief — pakai istilah yang jelas',
+        ph: 'mis. kerah cina tertutup',
+        show: (e) => e.mode !== 'referensi' && e.leher === 'manual',
+      },
+      {
+        k: 'kakiM',
+        t: 'area',
+        l: 'Alas kaki (manual)',
+        note: 'ditulis apa adanya ke brief — pakai istilah yang jelas',
+        ph: 'mis. sepatu kulit hitam berujung bulat, tanpa tali',
+        show: (e) => e.mode !== 'referensi' && e.kaki === 'manual',
+      },
+      {
+        k: 'tandaM',
+        t: 'area',
+        l: 'Karakter kain (manual)',
+        note: 'ditulis apa adanya ke brief — pakai istilah yang jelas',
+        ph: 'mis. kerah sudah melunak karena sering dicuci',
+        show: (e) => e.mode !== 'referensi' && (e.tanda || []).indexOf('manual') > -1,
       },
       {
         k: 'jumlah',
@@ -1502,6 +1553,8 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
           ['satin', 'Satin'],
           ['korduroi', 'Korduroi'],
           ['kanvas', 'Kanvas'],
+          ['manual', '— isi manual —'],
+          ['rekom', '— rekomendasikan —'],
         ],
       },
       {
@@ -1514,6 +1567,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
           ['pas', 'Pas badan'],
           ['sedang', 'Sedang'],
           ['longgar', 'Longgar'],
+          ['rekom', '— rekomendasikan —'],
         ],
       },
       {
@@ -1528,6 +1582,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
           ['terbalik', 'Segitiga terbalik'],
           ['berlapis', 'Berlapis'],
           ['mono', 'Monolitik'],
+          ['rekom', '— rekomendasikan —'],
         ],
       },
       {
@@ -1545,6 +1600,8 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
           ['kerah', 'Kerah kemeja'],
           ['turtle', 'Turtleneck'],
           ['tinggi', 'Tertutup tinggi'],
+          ['manual', '— isi manual —'],
+          ['rekom', '— rekomendasikan —'],
         ],
       },
       {
@@ -1562,6 +1619,8 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
           ['hak', 'Hak rendah'],
           ['lari', 'Sepatu lari'],
           ['tanpa', 'Tanpa alas kaki'],
+          ['manual', '— isi manual —'],
+          ['rekom', '— rekomendasikan —'],
         ],
       },
       {
@@ -1579,6 +1638,8 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
           ['kelim', 'Kelim lebih panjang sebelah'],
           ['jahitan', 'Kain menarik di jahitan bahu'],
           ['pilling', 'Rajut sedikit berbulu'],
+          ['manual', '— isi manual —'],
+          ['rekom', '— rekomendasikan —'],
         ],
       },
     ],
@@ -1816,7 +1877,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
   },
 ];
 const bc={id:"m2",tab:"02 · TAMPILAN",title:["Atur seluruh ","identitas visual",", dari gaya dan busana sampai material, rias, latar, dan pencahayaan, agar setiap look terasa konsisten."],control:"select",panelTitle:"Brief Style",ctaLabel:"Buka di TAMPILAN",sections:vc(fs)},gs=()=>xc(fs);
-const KODE_GERBANG = 'GAYA-B7QX-4M93';
+const KODE_GERBANG = 'GAYA-C4TN-8W26';
 
 /* Dua frasa tanda kehidupan yang disuntik di mode referensi — tidak
    terbaca dari foto, dan pilihannya tidak kritis, jadi tanpa UI. */
@@ -1863,28 +1924,132 @@ function blokTokoh(f) {
   );
 }
 
-function blokSendiri(f, EN2) {
-  var t = f.bahan_v.map(function (r) { return Q.bahan[r]; }),
-    n = f.tanda_v.map(function (r) { return Q.tanda[r]; });
+function opsiField(k) {
+  for (var i = 0; i < fs.length; i++)
+    for (var j = 0; j < fs[i].fields.length; j++)
+      if (fs[i].fields[j].k === k) return fs[i].fields[j].o || [];
+  return [];
+}
+
+/* Daftar tertutup yang ikut dicetak saat user memilih "rekomendasikan".
+   Model MEMILIH lalu MENYALIN — bukan menyusun frasa sendiri. */
+function daftarKandidat(k, peta) {
+  return opsiField(k)
+    .filter(function (o) { return o[0] !== 'manual' && o[0] !== 'rekom'; })
+    .map(function (o) { return '      ' + o[1] + ' → ' + peta[o[0]]; })
+    .join('\n');
+}
+
+function dasarKeputusan(f) {
+  var d = [
+    'kuadran casting ' + f.kuadran,
+    'peran ' + f.peran,
+    'kanal ' + (f.kanal.length ? f.kanal.join(', ') : 'belum ditentukan'),
+    'iklim tropis Indonesia',
+  ];
+  if (f.arah_v !== 'manual' && f.arah_v !== undefined) d.splice(1, 0, 'gaya busana ' + f.arah);
+  if (f.preset_v === 'tanpa') d.push('latar ' + f.latar, 'pencahayaan ' + f.cahaya);
+  else d.push('preset ' + f.preset);
+  if (f.pantang) d.push('pantangan: ' + f.pantang);
+  return d.join(' · ');
+}
+
+function barisRekom(f, label, k, peta, jumlahPilih, catatan) {
   return (
-    'ARAH GAYA\n- Arah busana   : ' + f.arah + ' → ' + Q.arah[f.arah_v] +
-    (f.arah_v === 'street'
-      ? '\n  → jenis kelamin : ' + f.sgender +
-        ((f.sgender_v === 'l' ? f.refl_v : f.refw_v) !== 'tanpa'
-          ? '\n  → referensi outfit : ' + (f.sgender_v === 'l' ? f.refl : f.refw) +
-            '\n    salin padu padannya: ' +
-            (f.sgender_v === 'l' ? Q.refl[f.refl_v] : Q.refw[f.refw_v])
-          : '')
-      : '') +
-    '\n- Palet kapsul  : ' + f.palet + ' → ' + Q.palet[f.palet_v] +
-    '\n- Jumlah look   : ' + f.jumlah +
-    '\n\nMATERIAL & SILUET — frasa Inggris di kanan panah SUDAH FINAL, salin apa adanya\n' +
-    '- Bahan         : ' + (t.length ? t.join('; ') : '[pilihkan 3–4 tenunan berbeda]') +
-    '\n- Fit dominan   : ' + f.fit + ' → ' + Q.fit[f.fit_v] +
-    '\n- Siluet        : ' + f.siluet + ' → ' + Q.siluet[f.siluet_v] +
-    '\n- Garis leher   : ' + f.leher + ' → ' + Q.leher[f.leher_v] +
-    '\n- Alas kaki     : ' + f.kaki + ' → ' + Q.kaki[f.kaki_v] +
-    '\n- Tanda kehidupan kain : ' + (n.length ? n.join('; ') : '[WAJIB — pilihkan 1–2]') + '\n'
+    '- ' + label + ' : [REKOMENDASIKAN]\n' +
+    '  Pilih ' + jumlahPilih + ' dari daftar tertutup di bawah, lalu SALIN frasa Inggrisnya\n' +
+    '  apa adanya. Dilarang memakai nilai di luar daftar, dilarang menyusun frasa\n' +
+    '  sendiri, dilarang menerjemahkan ulang.\n' +
+    '  Dasarkan pada: ' + dasarKeputusan(f) + '\n' +
+    (catatan ? '  ' + catatan + '\n' : '') +
+    '  DAFTAR:\n' + daftarKandidat(k, peta) + '\n' +
+    '  Tulis pilihanmu di blok yang bersangkutan beserta SATU kalimat alasan.\n'
+  );
+}
+
+function barisNilai(f, label, k, peta, manual) {
+  var v = f[k + '_v'];
+  if (v === 'manual') return '- ' + label + ' : [ISI MANUAL] ' + (manual || '[kolom dikosongkan — tanyakan]') + '\n';
+  return '- ' + label + ' : ' + f[k] + ' → ' + peta[v] + '\n';
+}
+
+function barisMulti(f, label, k, peta, manual, jumlahPilih, catatan) {
+  var v = f[k + '_v'] || [];
+  if (v.indexOf('rekom') > -1) return barisRekom(f, label, k, peta, jumlahPilih, catatan);
+  var teks = v
+    .filter(function (r) { return r !== 'manual' && r !== 'rekom'; })
+    .map(function (r) { return peta[r]; });
+  if (v.indexOf('manual') > -1 && manual) teks.push('[ISI MANUAL] ' + manual);
+  return '- ' + label + ' : ' + (teks.length ? teks.join('; ') : '[WAJIB — belum diisi]') + '\n';
+}
+
+function adaRekom(f) {
+  return (
+    f.palet_v === 'rekom' ||
+    f.fit_v === 'rekom' ||
+    f.siluet_v === 'rekom' ||
+    f.leher_v === 'rekom' ||
+    f.kaki_v === 'rekom' ||
+    (f.bahan_v || []).indexOf('rekom') > -1 ||
+    (f.tanda_v || []).indexOf('rekom') > -1
+  );
+}
+
+function blokSendiri(f) {
+  var kepalaRekom = adaRekom(f)
+    ? '\nATURAN REKOMENDASI — BERLAKU UNTUK SETIAP BARIS [REKOMENDASIKAN]\n' +
+      'Baris bertanda [REKOMENDASIKAN] belum saya tentukan. Kamu yang memutuskan,\n' +
+      'TAPI hanya boleh memilih dari daftar yang tercetak di bawah baris itu, dan\n' +
+      'frasa Inggrisnya disalin persis. Daftar itu tertutup.\n' +
+      'Putuskan SEMUA baris rekomendasi SEBELUM menyusun look pertama, lalu pakai\n' +
+      'keputusan yang sama di seluruh set. Dilarang berganti di tengah set.\n' +
+      'Tulis seluruh keputusan rekomendasi di blok 6 sebagai satu daftar, masing-\n' +
+      'masing dengan satu kalimat alasan yang menyebut input mana yang dipakai.\n' +
+      'Kalau dua input saling bertentangan, sebutkan bentroknya lalu pilih yang\n' +
+      'melayani kuadran casting — kuadran yang menang.\n'
+    : '';
+
+  return (
+    'ARAH GAYA\n' +
+    (f.arah_v === 'manual'
+      ? '- Arah busana   : [ISI MANUAL] ' + (f.arahM || '[kolom dikosongkan — tanyakan]') + '\n' +
+        '  Terjemahkan sendiri ke frasa Inggris yang lugas, sebut potongan dan panjang.\n' +
+        '  Jangan menambah potongan yang tidak saya sebut.\n'
+      : '- Arah busana   : ' + f.arah + ' → ' + Q.arah[f.arah_v] + '\n' +
+        (f.arah_v === 'street'
+          ? '  → jenis kelamin : ' + f.sgender + '\n' +
+            ((f.sgender_v === 'l' ? f.refl_v : f.refw_v) !== 'tanpa'
+              ? '  → referensi outfit : ' + (f.sgender_v === 'l' ? f.refl : f.refw) + '\n' +
+                '    salin padu padannya: ' +
+                (f.sgender_v === 'l' ? Q.refl[f.refl_v] : Q.refw[f.refw_v]) + '\n'
+              : '')
+          : '')) +
+    (f.palet_v === 'rekom'
+      ? barisRekom(f, 'Palet kapsul', 'palet', Q.palet, 'SATU',
+          'Palet ini mengikat seluruh set — 4-5 warna, semua look disusun darinya.')
+      : barisNilai(f, 'Palet kapsul ', 'palet', Q.palet, f.paletM)) +
+    '- Jumlah look   : ' + f.jumlah + '\n' +
+    kepalaRekom +
+    '\nMATERIAL & SILUET — frasa Inggris di kanan panah SUDAH FINAL, salin apa adanya\n' +
+    barisMulti(f, 'Bahan        ', 'bahan', Q.bahan, f.bahanM, '3',
+      'Minimal tiga tenunan berbeda. Hindari bahan berat kecuali konteksnya ber-AC.') +
+    (f.fit_v === 'rekom'
+      ? barisRekom(f, 'Fit dominan  ', 'fit', Q.fit, 'SATU', null)
+      : barisNilai(f, 'Fit dominan  ', 'fit', Q.fit, null)) +
+    (f.siluet_v === 'rekom'
+      ? barisRekom(f, 'Siluet       ', 'siluet', Q.siluet, 'SATU',
+          'Siluet harus melayani Profil Tubuh terkunci, bukan melawannya.')
+      : barisNilai(f, 'Siluet       ', 'siluet', Q.siluet, null)) +
+    (f.leher_v === 'rekom'
+      ? barisRekom(f, 'Garis leher  ', 'leher', Q.leher, 'SATU',
+          'Minimal sepertiga look memperlihatkan klavikula, kecuali tokoh berhijab.')
+      : barisNilai(f, 'Garis leher  ', 'leher', Q.leher, f.leherM)) +
+    (f.kaki_v === 'rekom'
+      ? barisRekom(f, 'Alas kaki    ', 'kaki', Q.kaki, 'SATU',
+          'Titik gagal render kedua setelah tangan. Hindari yang berdetail rumit.')
+      : barisNilai(f, 'Alas kaki    ', 'kaki', Q.kaki, f.kakiM)) +
+    barisMulti(f, 'Tanda kehidupan kain', 'tanda', Q.tanda, f.tandaM, 'DUA',
+      'Wajib ada minimal satu di setiap look. Kunci sisinya, jangan berganti.')
   );
 }
 
@@ -1951,7 +2116,9 @@ function Df(f) {
   var ref = f.mode_v === 'referensi';
   var a = f.asli_v.map(function (r) { return Q.asli[r]; });
   var jml = parseInt(f.jumlah_v, 10) || 5;
-  var muslim = ['syari', 'mlonggar', 'mmodern', 'mkasual'].indexOf(f.arah_v) > -1;
+  var muslim =
+    ['syari', 'mlonggar', 'mmodern', 'mkasual'].indexOf(f.arah_v) > -1 ||
+    (f.arah_v === 'manual' && f.hijab_v === 'ya');
 
   return (
 `=== FLUENS STYLE BRIEF — MODE ` + (ref ? 'REFERENSI' : 'ATUR SENDIRI') + ` ===
