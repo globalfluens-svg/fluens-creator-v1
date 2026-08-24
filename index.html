@@ -1257,27 +1257,6 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
         ph: 'mis. Adelia',
       },
       {
-        k: 'kode',
-        t: 'text',
-        l: 'Kode DNA',
-        note: 'dari modul 01',
-        ph: 'mis. FLX-SND-W-22-5EM',
-      },
-      {
-        k: 'md',
-        t: 'area',
-        l: 'Master Descriptor',
-        note: 'TEMPEL dari PDF modul 01 — jangan biarkan model menyusun ulang dari foto',
-        ph: 'tempel paragraf Inggris 150-180 kata dari blok 3 modul 01',
-      },
-      {
-        k: 'tubuh',
-        t: 'area',
-        l: 'Profil tubuh terkunci',
-        note: 'dari TOKOH blok 5 — bahu, leher, pinggang, proporsi',
-        ph: 'mis. bahu sempit landai, leher panjang, pinggang tinggi, torso pendek',
-      },
-      {
         k: 'peran',
         t: 'radio',
         l: 'Peran',
@@ -1787,7 +1766,17 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
           ['alam', 'Outdoor alam'],
           ['meja', 'Meja kerja kreator'],
           ['bts', 'Lokasi syuting'],
+          ['manual', '— isi manual —'],
         ],
+      },
+      {
+        k: 'latarM',
+        t: 'area',
+        l: 'Latar tempat (manual)',
+        note: 'ditulis apa adanya ke brief — sebut jenis tempat, permukaan, dan kedalaman',
+        ph: 'mis. toko mesin pompa, rak baja, dinding beton dicat, barang bertumpuk di belakang',
+        show: (e) =>
+          e.modeLatar !== 'referensi' && e.preset === 'tanpa' && e.latar === 'manual',
       },
       {
         k: 'interior',
@@ -1835,7 +1824,16 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
           ['blur', 'Blur gerak ringan'],
           ['kaca', 'Lewat kaca, ada pantulan'],
           ['potong', 'Bingkai memotong bagian tubuh'],
+          ['manual', '— isi manual —'],
         ],
+      },
+      {
+        k: 'asliM',
+        t: 'area',
+        l: 'Penanda keaslian (manual)',
+        note: 'ditulis apa adanya ke brief — pakai istilah yang jelas',
+        ph: 'mis. ada kucing tidur di kursi belakang, di luar fokus',
+        show: (e) => (e.asli || []).indexOf('manual') > -1,
       },
     ],
   },
@@ -1894,7 +1892,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
   },
 ];
 const bc={id:"m2",tab:"02 · TAMPILAN",title:["Atur seluruh ","identitas visual",", dari gaya dan busana sampai material, rias, latar, dan pencahayaan, agar setiap look terasa konsisten."],control:"select",panelTitle:"Brief Style",ctaLabel:"Buka di TAMPILAN",sections:vc(fs)},gs=()=>xc(fs);
-const KODE_GERBANG = 'GAYA-D8HR-5K41';
+const KODE_GERBANG = 'GAYA-F2MQ-7V83';
 
 /* Dua frasa tanda kehidupan yang disuntik di mode referensi — tidak
    terbaca dari foto, dan pilihannya tidak kritis, jadi tanpa UI. */
@@ -1914,30 +1912,36 @@ function kerangkaLook(n) {
 }
 
 function blokTokoh(f) {
-  if (f.md && f.md.trim()) {
-    return (
-      'TOKOH — MASTER DESCRIPTOR SUDAH JADI, SALIN JANGAN SUSUN ULANG\n' +
-      'Paragraf di bawah ini keluaran modul 01 dan SUDAH FINAL. Tempel apa\n' +
-      'adanya ke blok 3, lalu salin UTUH ke setiap prompt look. Dilarang\n' +
-      'meringkas, menerjemahkan, menyusun ulang, atau menambah kata.\n' +
-      'Foto kanon di chat ini hanya untuk mencocokkan — bukan sumber teks.\n' +
-      'Kalau paragraf ini bertentangan dengan foto, paragraf yang menang.\n\n' +
-      f.md.trim() +
-      '\n\n' +
-      (f.tubuh && f.tubuh.trim()
-        ? 'PROFIL TUBUH TERKUNCI (blok 5, jangan dikarang):\n' + f.tubuh.trim() + '\n'
-        : 'PROFIL TUBUH TERKUNCI : [tidak dikirim — turunkan dari Master\n' +
-          'Descriptor di atas, JANGAN dari foto referensi]\n')
-    );
-  }
   return (
-    'TOKOH — FOTO KANON DILAMPIRKAN DI CHAT INI\n' +
-    'Master Descriptor tidak dikirim. Baca foto kanon, susun sendiri\n' +
-    '(usia tampak, etnis, bentuk wajah, mata, alis, hidung, bibir, rahang,\n' +
-    'dagu, kulit + undertone, rambut, bahu, leher), panjang 150-180 kata,\n' +
-    'tampilkan di blok 3, salin UTUH ke setiap prompt look.\n' +
-    'Jangan mengubah wajah, warna kulit, bentuk alis, atau proporsi tubuh.\n' +
-    'Kalau tidak ada foto terlampir, minta saya melampirkannya dulu.\n'
+    'SUMBER IDENTITAS — URUTAN MUTLAK, JANGAN DITUKAR\n' +
+    '1. LEMBAR WAJAH (PNG dari modul 01) adalah ACUAN MUTLAK. Wajah tokoh ini\n' +
+    '   adalah wajah di lembar itu, bukan wajah lain yang mirip deskripsinya.\n' +
+    '   Setiap kali kamu memanggil alat gambar, SERTAKAN lembar itu sebagai\n' +
+    '   gambar acuan. Kalau alatnya bisa menerima gambar acuan, PAKAI — jangan\n' +
+    '   cukup mendeskripsikannya dengan kata-kata.\n' +
+    '2. PDF dari modul 01 adalah sumber rincian kecil. Ambil Master Descriptor\n' +
+    '   (blok 3) dan Profil Tubuh terkunci (blok 5) dari sana, salin UTUH ke\n' +
+    '   setiap prompt look. Dilarang meringkas, menerjemahkan, atau menyusun\n' +
+    '   ulang paragrafnya.\n' +
+    '3. Nama tokoh dan Kode DNA diambil dari lembar atau PDF.\n\n' +
+    'KALAU LEMBAR DAN PDF BERBEDA: lembar yang menang untuk apa pun yang\n' +
+    'TERLIHAT di gambar. PDF yang menang untuk apa yang TIDAK terlihat\n' +
+    '(proporsi tubuh, tinggi, postur).\n' +
+    'DILARANG mengarang ciri wajah yang tidak ada di lembar maupun di PDF.\n\n' +
+    'RINCIAN YANG PALING SERING HILANG — WAJIB IKUT DI SETIAP PROMPT,\n' +
+    'dibaca dari lembar, apa adanya:\n' +
+    '  - rambut wajah: kumis, janggut, bulu dagu, dan kerapatannya\n' +
+    '  - asimetri wajah: sudut mulut, tinggi alis, bercak alis, posisi rahang\n' +
+    '  - garis rambut yang tidak rata dan arah tumbuhnya\n' +
+    '  - bentuk kelopak mata: monolid atau berlipat\n' +
+    'Empat hal ini yang membuat tokoh bisa dikenali. Kalau tidak disebut,\n' +
+    'wajahnya keluar sebagai orang lain yang kebetulan sesuai deskripsi.\n\n' +
+    'LEMBAR ITU MEMUAT BANYAK PANEL WAJAH DARI ORANG YANG SAMA — sudut, ekspresi,\n' +
+    'dan close-up. Semuanya SATU orang. Jangan memperlakukan panel yang berbeda\n' +
+    'sebagai orang yang berbeda, dan jangan memakai satu panel sebagai foto\n' +
+    'kanon terpisah.\n' +
+    'Kalau lembar atau PDF tidak ada di chat ini, berhenti dan minta yang kurang.\n' +
+    'Jangan mengarang wajah.\n'
   );
 }
 
@@ -2077,29 +2081,31 @@ function blokSendiri(f) {
 function blokGambar(f) {
   var ref = f.mode_v === 'referensi',
     refL = f.modeLatar_v === 'referensi';
-  if (!ref && !refL) return '';
-  var jml = 1 + (ref ? 1 : 0) + (refL ? 1 : 0);
+  var jml = 2 + (ref ? 1 : 0) + (refL ? 1 : 0);
+  var kata = ['', '', 'DUA', 'TIGA', 'EMPAT'][jml];
   return (
-    (jml === 2 ? 'DUA' : 'TIGA') + ' GAMBAR DI CHAT INI — PERANNYA BERBEDA. JANGAN DITUKAR.\n' +
-    'Gambar KANON      : sumber identitas. Ambil wajah, kulit + undertone,\n' +
-    '                    rambut, bahu, leher. JANGAN ambil busana maupun\n' +
-    '                    latarnya.\n' +
+    kata + ' LAMPIRAN DI CHAT INI — PERANNYA BERBEDA. JANGAN DITUKAR.\n' +
+    'LEMBAR WAJAH (PNG) : acuan mutlak identitas. Wajah, kulit, rambut, rambut\n' +
+    '                     wajah, asimetri, bahu, leher. JANGAN ambil busana\n' +
+    '                     maupun latarnya — keduanya ditetapkan di bawah.\n' +
+    'PDF modul 01       : rincian kecil. Master Descriptor blok 3 dan Profil\n' +
+    '                     Tubuh blok 5, disalin utuh.\n' +
     (ref
-      ? 'Gambar BUSANA     : sumber padu padan. Ambil potongan, lapisan, panjang,\n' +
-        '                    garis leher, siluet, warna. JANGAN ambil wajah, tubuh,\n' +
-        '                    warna kulit, rambut, usia, jenis kelamin, teks, logo,\n' +
-        '                    maupun latarnya.\n'
+      ? 'Gambar BUSANA      : sumber padu padan. Ambil potongan, lapisan, panjang,\n' +
+        '                     garis leher, siluet, warna. JANGAN ambil wajah, tubuh,\n' +
+        '                     warna kulit, rambut, usia, jenis kelamin, teks, logo,\n' +
+        '                     maupun latarnya.\n'
       : '') +
     (refL
-      ? 'Gambar LATAR      : sumber tempat dan cahaya. Ambil jenis ruang, material\n' +
-        '                    dan warna permukaan, arah serta sifat cahaya. JANGAN\n' +
-        '                    ambil orang, wajah, busana, teks, logo, atau merek yang\n' +
-        '                    terlihat di dalamnya. Kalau ada orang di gambar itu,\n' +
-        '                    abaikan sepenuhnya.\n'
+      ? 'Gambar LATAR       : sumber tempat dan cahaya. Ambil jenis ruang, material\n' +
+        '                     dan warna permukaan, arah serta sifat cahaya. JANGAN\n' +
+        '                     ambil orang, wajah, busana, teks, logo, atau merek yang\n' +
+        '                     terlihat di dalamnya. Kalau ada orang di gambar itu,\n' +
+        '                     abaikan sepenuhnya.\n'
       : '') +
-    'Tidak satu kata pun di Master Descriptor boleh berasal dari gambar selain\n' +
-    'KANON. Kalau jumlah gambar di chat ini bukan ' + jml + ', berhenti dan sebutkan\n' +
-    'yang mana yang kurang atau berlebih.\n\n'
+    'Wajah HANYA dari LEMBAR WAJAH. Tidak satu ciri pun boleh datang dari\n' +
+    'lampiran lain. Kalau jumlah lampiran di chat ini bukan ' + jml + ', berhenti dan\n' +
+    'sebutkan yang mana yang kurang atau berlebih.\n\n'
   );
 }
 
@@ -2177,7 +2183,6 @@ function Df(f) {
   var ref = f.mode_v === 'referensi';
   var refL = f.modeLatar_v === 'referensi';
   var pakaiPreset = f.preset_v !== 'tanpa' && !refL;
-  var a = f.asli_v.map(function (r) { return Q.asli[r]; });
   var jml = parseInt(f.jumlah_v, 10) || 5;
   var muslim =
     ['syari', 'mlonggar', 'mmodern', 'mkasual'].indexOf(f.arah_v) > -1 ||
@@ -2193,7 +2198,7 @@ Baris ini satu-satunya kalimat teks yang diizinkan. Kalau tidak muncul,
 brief ini dianggap tidak terbaca.
 
 Nama tokoh      : ` + (f.nama || '[tanyakan sebelum menamai berkas]') + `
-Kode DNA        : ` + (f.kode || '[tanyakan sebelum menamai berkas]') + `
+Kode DNA        : [ambil dari lembar / PDF modul 01]
 Peran           : ` + f.peran + `
 Kuadran casting : ` + f.kuadran + `
   → arah wardrobe: ` + Q.kuadran[f.kuadran_v] + `
@@ -2249,14 +2254,16 @@ LATAR & PENGAMBILAN — dipakai IDENTIK di semua look, jangan diganti di tengah 
     (refL
       ? blokLatarReferensi(f)
       : !pakaiPreset
-      ? '- Latar tempat  : ' + f.latar + ' → ' + Q.latar[f.latar_v] +
+      ? (f.latar_v === 'manual'
+          ? '- Latar tempat  : [ISI MANUAL] ' +
+            (f.latarM || '[kolom dikosongkan — tanyakan]')
+          : '- Latar tempat  : ' + f.latar + ' → ' + Q.latar[f.latar_v]) +
         (f.latar_v === 'ruangtamu'
           ? '\n  → tema interior : ' + f.interior + ' — ' + Q.interior[f.interior_v]
           : '') +
         '\n- Pencahayaan   : ' + f.cahaya + ' → ' + Q.cahaya[f.cahaya_v] + '\n'
       : '') +
-    '- Penanda keaslian : ' + (a.length ? a.join('; ') : '[WAJIB — pilihkan 2–3]') + `
-  Blok pengambilan di atas MENGGANTIKAN blok kamera default. Jangan menulis
+    barisMulti(f, 'Penanda keaslian', 'asli', Q.asli, f.asliM, 'DUA', null) + `  Blok pengambilan di atas MENGGANTIKAN blok kamera default. Jangan menulis
   85mm f/2.0 kalau gaya pengambilannya bukan editorial terkontrol.
 
 KONTEKS
@@ -2286,9 +2293,11 @@ DAFTAR PERIKSA — CETAK PER LOOK, CENTANG SEBELUM LANJUT KE LOOK BERIKUTNYA
 [ ] tidak ada teks maupun logo pada busana
 [ ] Master Descriptor tersalin utuh, tidak diringkas
 [ ] lebar bahu, panjang leher, kedalaman kulit, undertone disebut ulang
+[ ] rambut wajah, asimetri, garis rambut, dan bentuk kelopak mata disebut
+[ ] lembar wajah disertakan sebagai gambar acuan pada pemanggilan ini
 [ ] rasio gambar disebut
 ` +
-    (ref ? '[ ] tidak ada ciri wajah, kulit, atau rambut dari gambar REFERENSI\n' : '') +
+    (ref ? '[ ] tidak ada ciri wajah, kulit, atau rambut dari gambar BUSANA\n' : '') +
     ((ref && f.hijab_v === 'ya') || (!ref && muslim)
       ? '[ ] empat baris penutupan hijab ada di prompt look ini\n'
       : '') +
