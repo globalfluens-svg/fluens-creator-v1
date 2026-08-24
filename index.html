@@ -1892,7 +1892,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
   },
 ];
 const bc={id:"m2",tab:"02 · TAMPILAN",title:["Atur seluruh ","identitas visual",", dari gaya dan busana sampai material, rias, latar, dan pencahayaan, agar setiap look terasa konsisten."],control:"select",panelTitle:"Brief Style",ctaLabel:"Buka di TAMPILAN",sections:vc(fs)},gs=()=>xc(fs);
-const KODE_GERBANG = 'GAYA-F2MQ-7V83';
+const KODE_GERBANG = 'GAYA-H5NP-3T97';
 
 /* Dua frasa tanda kehidupan yang disuntik di mode referensi — tidak
    terbaca dari foto, dan pilihannya tidak kritis, jadi tanpa UI. */
@@ -1916,9 +1916,18 @@ function blokTokoh(f) {
     'SUMBER IDENTITAS — URUTAN MUTLAK, JANGAN DITUKAR\n' +
     '1. LEMBAR WAJAH (PNG dari modul 01) adalah ACUAN MUTLAK. Wajah tokoh ini\n' +
     '   adalah wajah di lembar itu, bukan wajah lain yang mirip deskripsinya.\n' +
-    '   Setiap kali kamu memanggil alat gambar, SERTAKAN lembar itu sebagai\n' +
-    '   gambar acuan. Kalau alatnya bisa menerima gambar acuan, PAKAI — jangan\n' +
-    '   cukup mendeskripsikannya dengan kata-kata.\n' +
+    '   Lembar itu MASUKAN, bukan keluaran. Pakai sebagai rujukan wajah pada\n' +
+    '   setiap pemanggilan alat gambar, kalau alatnya bisa menerima rujukan.\n' +
+    '\n' +
+    '   YANG HARUS KELUAR DARI SETIAP PEMANGGILAN: SATU foto baru, SATU orang,\n' +
+    '   SATU look, satu bingkai penuh. Foto itu belum pernah ada sebelumnya.\n' +
+    '   DILARANG KERAS: menyalin, meniru tata letak, mengedit, memperbaiki,\n' +
+    '   mewarnai ulang, atau menghasilkan ulang lembar itu; membuat kisi,\n' +
+    '   panel, kolase, character sheet, set ekspresi, atau lembar apa pun yang\n' +
+    '   memuat lebih dari satu foto; menyertakan kartu identitas, label, judul,\n' +
+    '   nomor panel, atau teks apa pun di dalam gambar.\n' +
+    '   Kalau gambar yang kamu hasilkan menyerupai lembar acuan, itu GAGAL —\n' +
+    '   buang dan ulangi sebagai satu foto tunggal.\n' +
     '2. PDF dari modul 01 adalah sumber rincian kecil. Ambil Master Descriptor\n' +
     '   (blok 3) dan Profil Tubuh terkunci (blok 5) dari sana, salin UTUH ke\n' +
     '   setiap prompt look. Dilarang meringkas, menerjemahkan, atau menyusun\n' +
@@ -1968,9 +1977,19 @@ function dasarKeputusan(f) {
     'kanal ' + (f.kanal.length ? f.kanal.join(', ') : 'belum ditentukan'),
     'iklim tropis Indonesia',
   ];
-  if (f.mode_v === 'referensi') d.splice(1, 0, 'outfit di gambar REFERENSI');
-  else if (f.arah_v !== 'manual') d.splice(1, 0, 'gaya busana ' + f.arah);
-  if (f.preset_v === 'tanpa') d.push('latar ' + f.latar, 'pencahayaan ' + f.cahaya);
+  if (f.mode_v === 'referensi') d.splice(1, 0, 'outfit di gambar BUSANA');
+  else
+    d.splice(
+      1,
+      0,
+      'gaya busana ' + (f.arah_v === 'manual' ? f.arahM || '[belum diisi]' : f.arah)
+    );
+  if (f.modeLatar_v === 'referensi') d.push('latar & cahaya dari gambar LATAR');
+  else if (f.preset_v === 'tanpa')
+    d.push(
+      'latar ' + (f.latar_v === 'manual' ? f.latarM || '[belum diisi]' : f.latar),
+      'pencahayaan ' + f.cahaya
+    );
   else d.push('preset ' + f.preset);
   if (f.pantang) d.push('pantangan: ' + f.pantang);
   return d.join(' · ');
@@ -2294,7 +2313,8 @@ DAFTAR PERIKSA — CETAK PER LOOK, CENTANG SEBELUM LANJUT KE LOOK BERIKUTNYA
 [ ] Master Descriptor tersalin utuh, tidak diringkas
 [ ] lebar bahu, panjang leher, kedalaman kulit, undertone disebut ulang
 [ ] rambut wajah, asimetri, garis rambut, dan bentuk kelopak mata disebut
-[ ] lembar wajah disertakan sebagai gambar acuan pada pemanggilan ini
+[ ] gambar ini SATU foto tunggal — bukan kisi, panel, kolase, atau lembar
+[ ] tidak ada teks, label, atau nomor di dalam gambar
 [ ] rasio gambar disebut
 ` +
     (ref ? '[ ] tidak ada ciri wajah, kulit, atau rambut dari gambar BUSANA\n' : '') +
