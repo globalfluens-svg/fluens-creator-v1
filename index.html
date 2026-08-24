@@ -1722,7 +1722,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
         k: 'preset',
         t: 'radio',
         l: 'Preset gaya foto',
-        note: 'kalau dipilih, MENGGANTIKAN gaya pengambilan & pencahayaan di bawah',
+        note: 'kalau dipilih, MENGGANTIKAN gaya pengambilan, pencahayaan, dan latar tempat — ketiganya disembunyikan',
         def: 0,
         o: [
           ['tanpa', '— tanpa preset —'],
@@ -1740,6 +1740,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
         l: 'Gaya pengambilan',
         note: 'dipakai kalau tidak memilih preset',
         def: 1,
+        show: (e) => e.preset === 'tanpa',
         o: [
           ['editorialA', 'Editorial terkontrol'],
           ['candid', 'Candid dokumenter'],
@@ -1754,6 +1755,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
         t: 'radio',
         l: 'Latar tempat',
         def: 1,
+        show: (e) => e.preset === 'tanpa',
         o: [
           ['studio', 'Studio seamless'],
           ['kamar', 'Kamar'],
@@ -1781,7 +1783,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
         l: 'Tema interior',
         note: 'muncul kalau latar = Ruang tamu',
         def: 0,
-        show: (e) => e.latar === 'ruangtamu',
+        show: (e) => e.preset === 'tanpa' && e.latar === 'ruangtamu',
         o: [
           ['japandi', 'Japandi'],
           ['midcentury', 'Mid-century modern'],
@@ -1796,6 +1798,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
         t: 'radio',
         l: 'Pencahayaan',
         def: 1,
+        show: (e) => e.preset === 'tanpa',
         o: [
           ['studioC', 'Studio terkontrol'],
           ['pagi', 'Jendela pagi'],
