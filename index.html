@@ -1659,6 +1659,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
           ['natural', 'Natural rapi'],
           ['pro', 'Profesional'],
           ['editorialR', 'Editorial'],
+          ['rekom', '— rekomendasikan —'],
         ],
       },
       {
@@ -1671,6 +1672,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
           ['bening', 'Pendek bening'],
           ['nude', 'Sedang nude'],
           ['gelap', 'Warna gelap'],
+          ['rekom', '— rekomendasikan —'],
         ],
       },
       {
@@ -1947,7 +1949,8 @@ function dasarKeputusan(f) {
     'kanal ' + (f.kanal.length ? f.kanal.join(', ') : 'belum ditentukan'),
     'iklim tropis Indonesia',
   ];
-  if (f.arah_v !== 'manual' && f.arah_v !== undefined) d.splice(1, 0, 'gaya busana ' + f.arah);
+  if (f.mode_v === 'referensi') d.splice(1, 0, 'outfit di gambar REFERENSI');
+  else if (f.arah_v !== 'manual') d.splice(1, 0, 'gaya busana ' + f.arah);
   if (f.preset_v === 'tanpa') d.push('latar ' + f.latar, 'pencahayaan ' + f.cahaya);
   else d.push('preset ' + f.preset);
   if (f.pantang) d.push('pantangan: ' + f.pantang);
@@ -1990,13 +1993,15 @@ function adaRekom(f) {
     f.siluet_v === 'rekom' ||
     f.leher_v === 'rekom' ||
     f.kaki_v === 'rekom' ||
+    f.rias_v === 'rekom' ||
+    f.kuku_v === 'rekom' ||
     (f.bahan_v || []).indexOf('rekom') > -1 ||
     (f.tanda_v || []).indexOf('rekom') > -1
   );
 }
 
-function blokSendiri(f) {
-  var kepalaRekom = adaRekom(f)
+function kepalaRekom(f) {
+  return adaRekom(f)
     ? '\nATURAN REKOMENDASI — BERLAKU UNTUK SETIAP BARIS [REKOMENDASIKAN]\n' +
       'Baris bertanda [REKOMENDASIKAN] belum saya tentukan. Kamu yang memutuskan,\n' +
       'TAPI hanya boleh memilih dari daftar yang tercetak di bawah baris itu, dan\n' +
@@ -2008,7 +2013,9 @@ function blokSendiri(f) {
       'Kalau dua input saling bertentangan, sebutkan bentroknya lalu pilih yang\n' +
       'melayani kuadran casting — kuadran yang menang.\n'
     : '';
+}
 
+function blokSendiri(f) {
   return (
     'ARAH GAYA\n' +
     (f.arah_v === 'manual'
@@ -2029,7 +2036,6 @@ function blokSendiri(f) {
           'Palet ini mengikat seluruh set — 4-5 warna, semua look disusun darinya.')
       : barisNilai(f, 'Palet kapsul ', 'palet', Q.palet, f.paletM)) +
     '- Jumlah look   : ' + f.jumlah + '\n' +
-    kepalaRekom +
     '\nMATERIAL & SILUET — frasa Inggris di kanan panah SUDAH FINAL, salin apa adanya\n' +
     barisMulti(f, 'Bahan        ', 'bahan', Q.bahan, f.bahanM, '3',
       'Minimal tiga tenunan berbeda. Hindari bahan berat kecuali konteksnya ber-AC.') +
@@ -2136,11 +2142,19 @@ Kuadran casting : ` + f.kuadran + `
   → arah wardrobe: ` + Q.kuadran[f.kuadran_v] + `
 
 ` + blokTokoh(f) + `
+` + kepalaRekom(f) + `
 ` + (ref ? blokReferensi(f) : blokSendiri(f)) +
     (ref ? (f.hijab_v === 'ya' ? blokHijab() : '') : (muslim ? blokHijab() : '')) + `
 RIAS & AKSESORI
-- Tingkat rias  : ` + f.rias + ' → ' + Q.rias[f.rias_v] + `
-- Kuku          : ` + f.kuku + ' → ' + Q.kuku[f.kuku_v] + `
+` +
+    (f.rias_v === 'rekom'
+      ? barisRekom(f, 'Tingkat rias ', 'rias', Q.rias, 'SATU',
+          'Foto kanon dipakai tanpa rias atau rias minimal. Rias menutupi pori dan\n  pigmentasi yang jadi titik verifikasi wajah.')
+      : barisNilai(f, 'Tingkat rias ', 'rias', Q.rias, null)) +
+    (f.kuku_v === 'rekom'
+      ? barisRekom(f, 'Kuku         ', 'kuku', Q.kuku, 'SATU',
+          'Konten makanan, dapur, atau kesehatan wajib kuku pendek polos.')
+      : barisNilai(f, 'Kuku         ', 'kuku', Q.kuku, null)) + `
 - Aksesori tetap: ` + (f.akstetap || '[pilihkan satu, sebut sisinya]') + `
 - Aksesori variabel : ` + (f.aksvar.length ? f.aksvar.join(', ') : 'tidak ada') + `
 
