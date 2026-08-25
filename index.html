@@ -1912,7 +1912,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
   },
 ];
 const bc={id:"m2",tab:"02 · TAMPILAN",title:["Atur seluruh ","identitas visual",", dari gaya dan busana sampai material, rias, latar, dan pencahayaan, agar setiap look terasa konsisten."],control:"select",panelTitle:"Brief Style",ctaLabel:"Buka di TAMPILAN",sections:vc(fs)},gs=()=>xc(fs);
-const KODE_GERBANG = 'GAYA-R6TZ-4H79';
+const KODE_GERBANG = 'GAYA-T9CV-5N26';
 
 /* Dua frasa tanda kehidupan yang disuntik di mode referensi — tidak
    terbaca dari foto, dan pilihannya tidak kritis, jadi tanpa UI. */
@@ -2251,6 +2251,49 @@ function blokAksVar(f) {
 /* Empat uji berturut-turut membuktikan: meminta N look dalam SATU giliran
    selalu menghasilkan kolase, apa pun larangannya. Dua mode di bawah adalah
    dua cara hidup dengan kenyataan itu — bukan larangan kelima. */
+/* Larangan saja tidak pernah cukup: model butuh BENTUK yang harus ditiru,
+   bukan cuma daftar bentuk yang haram. Cetak biru di bawah mengubah
+   "susun prompt" jadi "isi slot lalu salin". */
+function cetakBiru(f) {
+  return (
+    'CETAK BIRU PROMPT LOOK — SALIN, ISI SLOT, KIRIM APA ADANYA\n' +
+    'Alat gambar TIDAK membaca brief ini. Yang sampai ke sana hanya kalimat\n' +
+    'yang kamu kirim. Jangan menyusun kalimatmu sendiri — pakai kerangka di\n' +
+    'bawah, ganti setiap <slot>, lalu kirim hasilnya UTUH sebagai satu prompt.\n' +
+    'Urutan baris jangan ditukar. Baris terakhir jangan dibuang.\n\n' +
+    '  A single photograph of one person, full frame, vertical, ' + f.rasio + '.\n' +
+    '  <MASTER DESCRIPTOR utuh dari PDF blok 3, disalin kata demi kata>\n' +
+    '  <rambut wajah, asimetri, garis rambut, bentuk kelopak mata dari lembar>\n' +
+    '  He wears <atasan: potongan, bahan, warna, fit>, <bawahan: potongan,\n' +
+    '  bahan, warna, fit>, and <alas kaki>. <garis leher>. <siluet>.\n' +
+    '  <tanda kehidupan kain>. <aksesori look ini>.\n' +
+    '  <LATAR FINAL — kalimat yang sama persis di setiap look>\n' +
+    '  <pencahayaan>\n' +
+    '  <sudut pengambilan>\n' +
+    '  <gaya pengambilan atau preset>\n' +
+    '  <penanda keaslian>\n' +
+    '  Shoulder width, neck length, skin depth and undertone exactly as\n' +
+    '  described above.\n' +
+    '  plain fabric with no text, letters, numbers, logo, emblem, badge or\n' +
+    '  brand mark anywhere on the clothing, gloves, shorts, wraps or props,\n' +
+    '  and no writing, signage, banner or lettering anywhere in the background.\n' +
+    '  This is one single photograph, not a character sheet, not a contact\n' +
+    '  sheet, not a grid, not a collage, not a lookbook page. No panels, no\n' +
+    '  caption bar, no identity card, no filename strip, no borders, no text\n' +
+    '  overlay, and no second person.\n\n' +
+    'TANDA KELUARAN SALAH — kalau gambar yang keluar memuat salah satu dari\n' +
+    'ini, itu BUKAN look. Jangan tampilkan, jangan hitung sebagai selesai:\n' +
+    '  - lebih dari satu bingkai foto di dalam satu gambar\n' +
+    '  - kartu identitas, tabel, atau baris nama berkas di kaki gambar\n' +
+    '  - tulisan FOTO KANON, CHARACTER SHEET, SET EKSPRESI, BEFORE, atau\n' +
+    '    nomor panel\n' +
+    '  - deretan close-up mata, bibir, telinga, atau belakang kepala\n' +
+    '  - latar atau busana yang tidak ada di brief ini\n' +
+    'Kalau salah satu muncul: sebutkan bahwa alat gambar mengembalikan lembar,\n' +
+    'bukan foto look, lalu BERHENTI. Jangan mencoba memotong lembarnya.\n\n'
+  );
+}
+
 function blokKeluaran(f, jml) {
   if (f.keluaran_v === 'lembar') {
     return (
@@ -2321,6 +2364,14 @@ Baris paling akhir jawabanmu, setelah tautan berkas, harus persis:
   FLX-M2 · ` + KODE_GERBANG + ` · ` + (ref ? 'REF' : 'SEND') + ` · ` + jml + ` look
 Baris ini satu-satunya kalimat teks yang diizinkan. Kalau tidak muncul,
 brief ini dianggap tidak terbaca.
+
+SATU TOKOH = SATU CHAT BARU — PERIKSA SEBELUM MULAI
+Chat ini harus kosong sebelum brief ini ditempel. Kalau di sini sudah ada
+gambar, lembar, tokoh, atau pekerjaan lain sebelumnya: BERHENTI, katakan
+chatnya sudah terpakai, dan minta saya membuka chat baru.
+Brief kedua di chat yang sudah menghasilkan gambar selalu tercemar — bentuk
+keluaran, latar, dan busana akan tertarik ke gambar lama, bukan ke brief ini.
+Jangan mencoba menyiasatinya. Berhenti saja.
 
 Nama tokoh      : ` + (f.nama || '[tanyakan sebelum menamai berkas]') + `
 Kode DNA        : [ambil dari lembar / PDF modul 01]
@@ -2448,7 +2499,7 @@ DAFTAR PERIKSA — CETAK PER LOOK, CENTANG SEBELUM LANJUT KE LOOK BERIKUTNYA
 `KALAU ADA YANG TIDAK TERCENTANG: perbaiki look itu sekarang, sebelum
 melanjutkan ke look berikutnya. Jangan lanjut lalu melapor di akhir.
 
-` + blokKeluaran(f, jml) + `
+` + cetakBiru(f) + blokKeluaran(f, jml) + `
 Nol tabel, nol daftar, nol spesifikasi, nol prompt, nol keterangan busana, nol
 penjelasan, nol kalimat pembuka maupun penutup.
 
