@@ -1476,6 +1476,17 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
           ['8', '8 look'],
         ],
       },
+      {
+        k: 'keluaran',
+        t: 'radio',
+        l: 'Mode keluaran',
+        note: 'meminta banyak look sekaligus memicu kolase — uji 1-4 gagal 100%',
+        def: 0,
+        o: [
+          ['bertahap', 'Satu look per pesan'],
+          ['lembar', 'Satu lembar galeri'],
+        ],
+      },
     ],
   },
   {
@@ -1901,7 +1912,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
   },
 ];
 const bc={id:"m2",tab:"02 · TAMPILAN",title:["Atur seluruh ","identitas visual",", dari gaya dan busana sampai material, rias, latar, dan pencahayaan, agar setiap look terasa konsisten."],control:"select",panelTitle:"Brief Style",ctaLabel:"Buka di TAMPILAN",sections:vc(fs)},gs=()=>xc(fs);
-const KODE_GERBANG = 'GAYA-P4JS-9C38';
+const KODE_GERBANG = 'GAYA-R6TZ-4H79';
 
 /* Dua frasa tanda kehidupan yang disuntik di mode referensi — tidak
    terbaca dari foto, dan pilihannya tidak kritis, jadi tanpa UI. */
@@ -2237,6 +2248,49 @@ function blokAksVar(f) {
   );
 }
 
+/* Empat uji berturut-turut membuktikan: meminta N look dalam SATU giliran
+   selalu menghasilkan kolase, apa pun larangannya. Dua mode di bawah adalah
+   dua cara hidup dengan kenyataan itu — bukan larangan kelima. */
+function blokKeluaran(f, jml) {
+  if (f.keluaran_v === 'lembar') {
+    return (
+      'INSTRUKSI — MODE LEMBAR GALERI\n' +
+      'Keluarannya SATU lembar berisi ' + jml + ' panel. Itu memang yang saya minta,\n' +
+      'jadi jangan melawannya. Yang wajib dipatuhi adalah bentuk lembarnya:\n' +
+      '  - Panel berjajar rapi, ukuran sama, jarak sama, urut 1 sampai ' + jml + '.\n' +
+      '  - Di bawah tiap panel HANYA "<nomor>. <Nama Look>". Tidak ada keterangan\n' +
+      '    busana, lensa, atau tanda kurung.\n' +
+      '  - NOL teks di dalam foto itu sendiri: tidak di busana, properti, papan\n' +
+      '    nama, spanduk, poster, maupun dinding.\n' +
+      '  - Baris gerbang versi dan tautan berkas ditulis sebagai TEKS di chat,\n' +
+      '    JANGAN digambar ke dalam lembar.\n' +
+      '  - Lembar dirender SEKALI. Jangan membuat versi alternatif, jangan\n' +
+      '    merapikannya lagi setelah jadi.\n' +
+      'Rasio yang saya minta berlaku untuk TIAP PANEL, bukan untuk lembarnya.\n' +
+      'Susun tiap panel pada rasio itu, baru gabungkan.\n'
+    );
+  }
+  return (
+    'INSTRUKSI — MODE SATU LOOK PER PESAN\n' +
+    'JANGAN membuat ' + jml + ' gambar di giliran ini. Meminta banyak look sekaligus\n' +
+    'selalu berakhir jadi kolase, dan kolase bukan yang saya butuhkan.\n\n' +
+    'GILIRAN INI: kerjakan LOOK 1 SAJA.\n' +
+    '  1. Susun blok 2 sampai 11 untuk SELURUH ' + jml + ' look lebih dulu, di dalam\n' +
+    '     kepala. Keputusan palet, bahan, siluet, latar, dan cahaya ditetapkan\n' +
+    '     sekarang dan dipakai sampai look terakhir.\n' +
+    '  2. Render SATU gambar untuk LOOK 1. Satu orang, satu bingkai penuh.\n' +
+    '  3. Tulis "1. <Nama Look>" sebagai teks di chat.\n' +
+    '  4. Tulis baris gerbang versi sebagai teks.\n' +
+    '  5. BERHENTI. Tunggu saya menulis "lanjut".\n\n' +
+    'Setiap kali saya menulis "lanjut", kerjakan look berikutnya dengan cara yang\n' +
+    'sama, satu gambar, sampai look ' + jml + '. Jangan mendahului, jangan\n' +
+    'menggabungkan dua look dalam satu gambar, jangan membuat lembar rangkuman di\n' +
+    'akhir. Berkas .txt dan PDF dikerjakan SETELAH look ' + jml + ' selesai.\n' +
+    'Kalau alat gambar tetap mengembalikan kolase, JANGAN diteruskan dan jangan\n' +
+    'ditandai selesai — sebutkan bahwa alatnya mengembalikan kolase, lalu berhenti.\n'
+  );
+}
+
 function blokHijab() {
   return (
     '\nTOKOH BERHIJAB — BERLAKU DI SEMUA LOOK, MENGALAHKAN REFERENSI\n' +
@@ -2339,7 +2393,15 @@ LATAR & PENGAMBILAN — dipakai IDENTIK di semua look, jangan diganti di tengah 
           : '') +
         '\n- Pencahayaan   : ' + f.cahaya + ' → ' + Q.cahaya[f.cahaya_v] + '\n'
       : '') +
-    barisMulti(f, 'Penanda keaslian', 'asli', Q.asli, f.asliM, 'DUA', null) + `  Blok pengambilan di atas MENGGANTIKAN blok kamera default. Jangan menulis
+    barisMulti(f, 'Penanda keaslian', 'asli', Q.asli, f.asliM, 'DUA', null) + `  LATAR FINAL — TULIS SEKALI, LALU SALIN KE SETIAP PROMPT
+Susun satu kalimat Inggris yang mengunci latar: jenis tempat, permukaan utama,
+satu benda penanda yang selalu terlihat, dan arah cahayanya. Kalimat itu jadi
+LATAR FINAL, disalin PERSIS SAMA ke setiap prompt look.
+Menulis "latar sama seperti look sebelumnya" TIDAK BEKERJA — alat gambar tidak
+melihat look sebelumnya. Hanya kalimat yang disalin yang membuat latarnya sama.
+Tulis LATAR FINAL di blok 6 baris Latar tempat.
+
+Blok pengambilan di atas MENGGANTIKAN blok kamera default. Jangan menulis
   85mm f/2.0 kalau gaya pengambilannya bukan editorial terkontrol.
 
 KONTEKS
@@ -2386,24 +2448,7 @@ DAFTAR PERIKSA — CETAK PER LOOK, CENTANG SEBELUM LANJUT KE LOOK BERIKUTNYA
 `KALAU ADA YANG TIDAK TERCENTANG: perbaiki look itu sekarang, sebelum
 melanjutkan ke look berikutnya. Jangan lanjut lalu melapor di akhir.
 
-INSTRUKSI
-YANG TAMPIL DI LAYAR HANYA TIGA HAL:
-  1. ` + jml + ` GAMBAR TERPISAH, satu per look, dari ` + jml + ` pemanggilan alat
-     gambar yang BERBEDA. BUKAN satu gambar berisi beberapa panel, bukan
-     kolase, bukan lembar. Nama look ditulis sebagai TEKS di chat di bawah
-     gambarnya — "<nomor>. <Nama Look>", titik — BUKAN dicetak di dalam
-     gambarnya.
-  2. Tautan unduh .txt dan PDF — tautan yang bisa diklik, bukan gambar
-     tombol.
-  3. Baris gerbang versi sebagai TEKS di chat, bukan piksel di dalam gambar.
-KALAU salah satu dari ketiganya muncul sebagai piksel di dalam gambar, itu
-GAGAL. Ulangi sebagai gambar tunggal tanpa teks apa pun di dalamnya.
-Setiap look dirender SEKALI. Jangan menghasilkan ulang look yang sudah jadi,
-jangan membuat versi alternatif, jangan merapikan galeri di akhir.
-Setelah look terakhir selesai, TIDAK ADA pemanggilan alat gambar lagi. Jangan
-membuat lembar rangkuman, lookbook, kolase penutup, atau gambar sampul —
-walaupun kelihatannya melengkapi. Pemanggilan gambar berikutnya setelah look
-terakhir adalah PELANGGARAN.
+` + blokKeluaran(f, jml) + `
 Nol tabel, nol daftar, nol spesifikasi, nol prompt, nol keterangan busana, nol
 penjelasan, nol kalimat pembuka maupun penutup.
 
@@ -2432,8 +2477,13 @@ ATURAN KERAS
   "the same person", atau merujuk gambar sebelumnya.
 - Setiap potongan busana wajib disebut bahannya.
 - Minimal 40% look memperlihatkan garis bahu asli.
-- Setiap prompt memuat "plain, with no text or logo anywhere on the garment"
-  dan alas kaki yang spesifik.
+- Setiap prompt look WAJIB DIAKHIRI dengan kalimat Inggris ini, disalin persis,
+  tanpa diubah satu kata pun. Larangan berbahasa Indonesia di brief ini tidak
+  pernah sampai ke alat gambar; hanya kalimat inilah yang sampai:
+  plain fabric with no text, letters, numbers, logo, emblem, badge or brand mark
+  anywhere on the clothing, gloves, shorts, wraps or props, and no writing,
+  signage, banner or lettering anywhere in the background
+- Alas kaki disebut spesifik di setiap prompt.
 - Sebut ulang lebar bahu, panjang leher, kedalaman kulit, dan undertone di
   setiap prompt.
 - Motif berskala besar saja, maksimal satu potongan bermotif per look.
