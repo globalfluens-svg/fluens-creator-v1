@@ -1676,7 +1676,16 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
           ['tas', 'Tas selempang kecil'],
           ['ikat', 'Ikat pinggang tipis'],
           ['topi', 'Topi polos'],
+          ['manual', '— isi manual —'],
         ],
+      },
+      {
+        k: 'aksvarM',
+        t: 'area',
+        l: 'Aksesori variabel (manual)',
+        note: 'boleh lebih dari satu — tulis satu aksesori per baris',
+        ph: 'mis.\nhandwrap hitam di kedua tangan\nhanduk kecil di bahu\ntali skipping digantung di leher',
+        show: (e) => (e.aksvar || []).indexOf('manual') > -1,
       },
     ],
   },
@@ -1892,7 +1901,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
   },
 ];
 const bc={id:"m2",tab:"02 · TAMPILAN",title:["Atur seluruh ","identitas visual",", dari gaya dan busana sampai material, rias, latar, dan pencahayaan, agar setiap look terasa konsisten."],control:"select",panelTitle:"Brief Style",ctaLabel:"Buka di TAMPILAN",sections:vc(fs)},gs=()=>xc(fs);
-const KODE_GERBANG = 'GAYA-K3WD-6B52';
+const KODE_GERBANG = 'GAYA-P4JS-9C38';
 
 /* Dua frasa tanda kehidupan yang disuntik di mode referensi — tidak
    terbaca dari foto, dan pilihannya tidak kritis, jadi tanpa UI. */
@@ -2059,7 +2068,12 @@ function blokSendiri(f) {
     (f.arah_v === 'manual'
       ? '- Arah busana   : [ISI MANUAL] ' + (f.arahM || '[kolom dikosongkan — tanyakan]') + '\n' +
         '  Terjemahkan sendiri ke frasa Inggris yang lugas, sebut potongan dan panjang.\n' +
-        '  Jangan menambah potongan yang tidak saya sebut.\n'
+        '  Jangan menambah potongan yang tidak saya sebut.\n' +
+        '  KALAU isi manual di atas meminta tulisan, huruf, angka, logo, atau nama\n' +
+        '  merek pada busana atau properti: itu BENTROK dengan ATURAN KERAS.\n' +
+        '  YANG MENANG: ATURAN KERAS. Ganti jadi permukaan polos, atau sulaman\n' +
+        '  senada tanpa huruf yang terbaca. JANGAN diam — tulis satu baris di\n' +
+        '  blok 8 bahwa permintaan itu diganti dan apa penggantinya.\n'
       : '- Arah busana   : ' + f.arah + ' → ' + Q.arah[f.arah_v] + '\n' +
         (f.arah_v === 'street'
           ? '  → jenis kelamin : ' + f.sgender + '\n' +
@@ -2187,6 +2201,42 @@ function blokReferensi(f) {
   );
 }
 
+function blokAksVar(f) {
+  var v = f.aksvar_v || [];
+  var siap = (f.aksvar || []).filter(function (x) { return x !== '— isi manual —'; });
+  var manual = [];
+  if (v.indexOf('manual') > -1 && f.aksvarM)
+    manual = f.aksvarM
+      .split('\n')
+      .map(function (x) { return x.trim(); })
+      .filter(function (x) { return x.length > 0; });
+  var semua = siap.concat(manual);
+
+  if (!semua.length) return '- Aksesori variabel : tidak ada\n';
+
+  var baris = '- Aksesori variabel : ' + semua.length + ' butir\n';
+  for (var i = 0; i < semua.length; i++)
+    baris += '  ' + (i + 1) + '. ' + semua[i] + '\n';
+
+  return (
+    baris +
+    '  ATURAN SEBARAN — aksesori variabel BUKAN penanda tetap:\n' +
+    '  - Setiap butir di atas WAJIB muncul di minimal satu look, dan setiap butir\n' +
+    '    dipakai di look yang BERBEDA sebisa mungkin. Jangan menumpuk semuanya di\n' +
+    '    satu look, jangan memakai satu butir di semua look.\n' +
+    '  - Maksimal DUA butir dalam satu look. Digabung dengan aksesori tetap,\n' +
+    '    maksimal TIGA benda terlihat per look.\n' +
+    '  - Pilih look yang konteksnya masuk akal untuk butir itu, jangan asal bagi\n' +
+    '    rata. Kalau satu butir tidak cocok di look mana pun, tulis alasannya di\n' +
+    '    blok 8 — jangan diam-diam membuangnya.\n' +
+    '  - Bentuk, warna, dan sisi pemakaian tiap butir DIKUNCI di kemunculan\n' +
+    '    pertamanya, lalu dipakai persis sama di look berikutnya. Yang berubah\n' +
+    '    hanya ADA atau TIDAK ADA, bukan rupanya.\n' +
+    '  - Tulis di blok 8 baris Aksesori: butir mana yang dipakai di look itu.\n' +
+    '    Look tanpa aksesori variabel ditulis "hanya aksesori tetap".\n'
+  );
+}
+
 function blokHijab() {
   return (
     '\nTOKOH BERHIJAB — BERLAKU DI SEMUA LOOK, MENGALAHKAN REFERENSI\n' +
@@ -2240,7 +2290,12 @@ RIAS & AKSESORI
           'Konten makanan, dapur, atau kesehatan wajib kuku pendek polos.')
       : barisNilai(f, 'Kuku         ', 'kuku', Q.kuku, null)) + `
 - Aksesori tetap: ` + (f.akstetap || '[pilihkan satu, sebut sisinya]') + `
-- Aksesori variabel : ` + (f.aksvar.length ? f.aksvar.join(', ') : 'tidak ada') + `
+  Ini penanda identitas, bukan properti adegan: satu benda KECIL yang muncul di
+  SEMUA look, di sisi yang sama, dan bisa digambar ulang persis. Tidak boleh
+  menutupi tangan, tidak boleh membawa huruf atau merek. Kalau nilai di atas
+  berupa benda besar atau penutup tangan, pakai seadanya HANYA di look yang
+  konteksnya masuk akal, dan tetapkan satu penanda kecil terpisah untuk semua look.
+` + blokAksVar(f) + `
 
 LATAR & PENGAMBILAN — dipakai IDENTIK di semua look, jangan diganti di tengah set
 - Sudut pengambilan : ` + f.sudut + `
@@ -2316,7 +2371,12 @@ DAFTAR PERIKSA — CETAK PER LOOK, CENTANG SEBELUM LANJUT KE LOOK BERIKUTNYA
 [ ] lebar bahu, panjang leher, kedalaman kulit, undertone disebut ulang
 [ ] rambut wajah, asimetri, garis rambut, dan bentuk kelopak mata disebut
 [ ] gambar ini SATU foto tunggal — bukan kisi, panel, kolase, atau lembar
-[ ] tidak ada teks, label, atau nomor di dalam gambar
+[ ] tidak ada teks, label, atau nomor di dalam gambar — termasuk di busana,
+    properti, papan nama, poster, dan dinding di latar
+[ ] latar dan pencahayaan SAMA PERSIS dengan look sebelumnya — sudut ruang yang
+    sama, arah cahaya yang sama. Bukan sekadar tempat yang sama
+[ ] framing sesuai yang diminta: ` + f.frame + ` — ` + Q.frame[f.frame_v] + `
+[ ] siluet sama dengan look sebelumnya
 [ ] rasio gambar disebut
 ` +
     (ref ? '[ ] tidak ada ciri wajah, kulit, atau rambut dari gambar BUSANA\n' : '') +
@@ -2340,6 +2400,10 @@ KALAU salah satu dari ketiganya muncul sebagai piksel di dalam gambar, itu
 GAGAL. Ulangi sebagai gambar tunggal tanpa teks apa pun di dalamnya.
 Setiap look dirender SEKALI. Jangan menghasilkan ulang look yang sudah jadi,
 jangan membuat versi alternatif, jangan merapikan galeri di akhir.
+Setelah look terakhir selesai, TIDAK ADA pemanggilan alat gambar lagi. Jangan
+membuat lembar rangkuman, lookbook, kolase penutup, atau gambar sampul —
+walaupun kelihatannya melengkapi. Pemanggilan gambar berikutnya setelah look
+terakhir adalah PELANGGARAN.
 Nol tabel, nol daftar, nol spesifikasi, nol prompt, nol keterangan busana, nol
 penjelasan, nol kalimat pembuka maupun penutup.
 
