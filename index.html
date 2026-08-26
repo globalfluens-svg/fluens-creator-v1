@@ -1912,7 +1912,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
   },
 ];
 const bc={id:"m2",tab:"02 · TAMPILAN",title:["Atur seluruh ","identitas visual",", dari gaya dan busana sampai material, rias, latar, dan pencahayaan, agar setiap look terasa konsisten."],control:"select",panelTitle:"Brief Style",ctaLabel:"Buka di TAMPILAN",sections:vc(fs)},gs=()=>xc(fs);
-const KODE_GERBANG = 'GAYA-B3RF-7K92';
+const KODE_GERBANG = 'GAYA-D7HN-2V64';
 
 /* Dua frasa tanda kehidupan yang disuntik di mode referensi — tidak
    terbaca dari foto, dan pilihannya tidak kritis, jadi tanpa UI. */
@@ -2113,7 +2113,8 @@ function blokSendiri(f) {
       ? barisRekom(f, 'Palet kapsul', 'palet', Q.palet, 'SATU',
           'Palet ini mengikat seluruh set — 4-5 warna, semua look disusun darinya.')
       : barisNilai(f, 'Palet kapsul ', 'palet', Q.palet, f.paletM)) +
-    '- Jumlah look   : ' + f.jumlah + '\n' +
+    '- Jumlah look   : ' + f.jumlah +
+    (f.keluaran_v === 'bertahap' ? ' TOTAL — giliran ini HANYA look 1' : '') + '\n' +
     '\nMATERIAL & SILUET — frasa Inggris di kanan panah SUDAH FINAL, salin apa adanya\n' +
     barisMulti(f, 'Bahan        ', 'bahan', Q.bahan, f.bahanM, '3',
       'Minimal tiga tenunan berbeda. Hindari bahan berat kecuali konteksnya ber-AC.') +
@@ -2226,7 +2227,8 @@ function blokReferensi(f) {
       : '  Semua look memakai kosakata REFERENSI FINAL — lapisan, panjang, dan\n' +
         '  proporsi yang sama — dengan potongan dan susunan yang ditukar antar\n' +
         '  look. Bukan outfit yang sama diulang ' + f.jumlah_v + ' kali.\n') +
-    '\n- Jumlah look   : ' + f.jumlah + '\n'
+    '\n- Jumlah look   : ' + f.jumlah +
+    (f.keluaran_v === 'bertahap' ? ' TOTAL — giliran ini HANYA look 1' : '') + '\n'
   );
 }
 
@@ -2385,11 +2387,21 @@ function Df(f) {
 
 GERBANG VERSI — WAJIB
 Baris paling akhir jawabanmu, setelah tautan berkas, harus persis:
-  FLX-M2 · ` + KODE_GERBANG + ` · ` + (ref ? 'REF' : 'SEND') + ` · ` + jml + ` look
+  FLX-M2 · ` + KODE_GERBANG + ` · ` + (ref ? 'REF' : 'SEND') + ` · ` + (f.keluaran_v === 'bertahap' ? 'LOOK 1 dari ' + jml : jml + ' look') + `
 Baris ini satu-satunya kalimat teks yang diizinkan. Kalau tidak muncul,
 brief ini dianggap tidak terbaca.
 
-SATU TOKOH = SATU CHAT BARU — PERIKSA SEBELUM MULAI
+` + (f.keluaran_v === 'bertahap'
+    ? `PEKERJAAN GILIRAN INI — BACA SEBELUM APA PUN YANG LAIN
+Brief ini memuat rencana untuk ` + jml + ` look, TAPI giliran ini kamu hanya
+mengerjakan LOOK 1. Satu gambar. Bukan ` + jml + `.
+Angka "` + jml + ` look" di bawah adalah TOTAL rencana, bukan jumlah gambar yang
+dibuat sekarang. Setiap kali membaca angka itu, ingat: giliran ini = 1 gambar.
+Setelah look 1 selesai, BERHENTI dan tunggu saya menulis "lanjut".
+Rinciannya ada di bagian INSTRUKSI paling bawah.
+
+`
+    : '') + `SATU TOKOH = SATU CHAT BARU — PERIKSA SEBELUM MULAI
 Chat ini harus kosong sebelum brief ini ditempel. Kalau di sini sudah ada
 gambar, lembar, tokoh, atau pekerjaan lain sebelumnya: BERHENTI, katakan
 chatnya sudah terpakai, dan minta saya membuka chat baru.
