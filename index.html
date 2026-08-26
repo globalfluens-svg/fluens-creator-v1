@@ -1257,27 +1257,6 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
         ph: 'mis. Adelia',
       },
       {
-        k: 'kode',
-        t: 'text',
-        l: 'Kode DNA',
-        note: 'WAJIB — kartu identitas tidak ikut waktu foto kanon dipotong',
-        ph: 'mis. FLX-SND-L-22-QJH',
-      },
-      {
-        k: 'md',
-        t: 'area',
-        l: 'Master Descriptor',
-        note: 'tempel dari PDF modul 01 blok 3 — membaca dari PDF terbukti tidak andal',
-        ph: 'tempel paragraf Inggris dari blok 3',
-      },
-      {
-        k: 'tubuh',
-        t: 'area',
-        l: 'Profil tubuh terkunci',
-        note: 'tempel dari PDF modul 01 blok 5',
-        ph: 'tempel paragraf Inggris dari blok 5',
-      },
-      {
         k: 'peran',
         t: 'radio',
         l: 'Peran',
@@ -1933,7 +1912,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
   },
 ];
 const bc={id:"m2",tab:"02 · TAMPILAN",title:["Atur seluruh ","identitas visual",", dari gaya dan busana sampai material, rias, latar, dan pencahayaan, agar setiap look terasa konsisten."],control:"select",panelTitle:"Brief Style",ctaLabel:"Buka di TAMPILAN",sections:vc(fs)},gs=()=>xc(fs);
-const KODE_GERBANG = 'GAYA-Y8QD-3M57';
+const KODE_GERBANG = 'GAYA-B3RF-7K92';
 
 /* Dua frasa tanda kehidupan yang disuntik di mode referensi — tidak
    terbaca dari foto, dan pilihannya tidak kritis, jadi tanpa UI. */
@@ -1980,22 +1959,15 @@ function blokTokoh(f) {
     '   nomor panel, atau teks apa pun di dalam gambar.\n' +
     '   Kalau gambar yang kamu hasilkan menyerupai lembar acuan, itu GAGAL —\n' +
     '   buang dan ulangi sebagai satu foto tunggal.\n' +
-    (f.md && f.md.trim()
-      ? '2. MASTER DESCRIPTOR SUDAH DITEMPEL DI BAWAH — SALIN, JANGAN SUSUN ULANG.\n' +
-        '   Paragraf ini FINAL dan menang atas PDF maupun foto. Dilarang\n' +
-        '   meringkas, menerjemahkan, menyusun ulang, atau menambah kata.\n' +
-        '   Salin UTUH ke setiap prompt look.\n\n' +
-        f.md.trim() + '\n\n' +
-        (f.tubuh && f.tubuh.trim()
-          ? '   PROFIL TUBUH TERKUNCI (blok 5) — juga final:\n' + f.tubuh.trim() + '\n\n'
-          : '   PROFIL TUBUH TERKUNCI: [tidak ditempel — ambil dari PDF, jangan\n' +
-            '   dikarang, dan jangan bertentangan dengan paragraf di atas]\n\n')
-      : '2. PDF dari modul 01 adalah sumber Master Descriptor (blok 3) dan Profil\n' +
-        '   Tubuh terkunci (blok 5). Salin UTUH ke setiap prompt look — dilarang\n' +
-        '   meringkas, menerjemahkan, atau menyusun ulang.\n' +
-        '   KALAU PDF tidak terbaca: BERHENTI dan minta paragrafnya ditempel.\n' +
-        '   JANGAN menyusun deskripsi wajah sendiri dari foto — deskripsi\n' +
-        '   karangan selalu bertabrakan dengan Profil Tubuh terkunci.\n\n') +
+    '2. PDF dari modul 01 adalah sumber Master Descriptor (blok 3) dan Profil\n' +
+    '   Tubuh terkunci (blok 5). Salin UTUH ke setiap prompt look — dilarang\n' +
+    '   meringkas, menerjemahkan, atau menyusun ulang paragrafnya.\n' +
+    '   Kode DNA juga diambil dari PDF, apa adanya.\n' +
+    '   KALAU PDF tidak terbaca, atau kode DNA tidak ketemu: BERHENTI dan minta\n' +
+    '   saya menempelkan paragraf atau kodenya. JANGAN menyusun deskripsi wajah\n' +
+    '   sendiri dari foto, dan JANGAN mengarang kode DNA — deskripsi karangan\n' +
+    '   selalu bertabrakan dengan Profil Tubuh terkunci, dan kode karangan\n' +
+    '   membuat berkasnya salah nama.\n\n' +
     'KALAU LEMBAR DAN PDF BERBEDA: lembar yang menang untuk apa pun yang\n' +
     'TERLIHAT di gambar. PDF yang menang untuk apa yang TIDAK terlihat\n' +
     '(proporsi tubuh, tinggi, postur).\n' +
@@ -2426,7 +2398,7 @@ keluaran, latar, dan busana akan tertarik ke gambar lama, bukan ke brief ini.
 Jangan mencoba menyiasatinya. Berhenti saja.
 
 Nama tokoh      : ` + (f.nama || '[tanyakan sebelum menamai berkas]') + `
-Kode DNA        : ` + (f.kode || '[WAJIB — belum diisi, JANGAN dikarang, tanyakan]') + `
+Kode DNA        : [ambil dari PDF modul 01 — JANGAN dikarang]
 Peran           : ` + f.peran + `
 Kuadran casting : ` + f.kuadran + `
   → arah wardrobe: ` + Q.kuadran[f.kuadran_v] + `
