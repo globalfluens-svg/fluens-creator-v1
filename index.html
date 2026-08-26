@@ -1912,7 +1912,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
   },
 ];
 const bc={id:"m2",tab:"02 · TAMPILAN",title:["Atur seluruh ","identitas visual",", dari gaya dan busana sampai material, rias, latar, dan pencahayaan, agar setiap look terasa konsisten."],control:"select",panelTitle:"Brief Style",ctaLabel:"Buka di TAMPILAN",sections:vc(fs)},gs=()=>xc(fs);
-const KODE_GERBANG = 'GAYA-T9CV-5N26';
+const KODE_GERBANG = 'GAYA-W2LK-8F43';
 
 /* Dua frasa tanda kehidupan yang disuntik di mode referensi — tidak
    terbaca dari foto, dan pilihannya tidak kritis, jadi tanpa UI. */
@@ -1934,10 +1934,21 @@ function kerangkaLook(n) {
 function blokTokoh(f) {
   return (
     'SUMBER IDENTITAS — URUTAN MUTLAK, JANGAN DITUKAR\n' +
-    '1. LEMBAR WAJAH (PNG dari modul 01) adalah ACUAN MUTLAK. Wajah tokoh ini\n' +
-    '   adalah wajah di lembar itu, bukan wajah lain yang mirip deskripsinya.\n' +
-    '   Lembar itu MASUKAN, bukan keluaran. Pakai sebagai rujukan wajah pada\n' +
-    '   setiap pemanggilan alat gambar, kalau alatnya bisa menerima rujukan.\n' +
+    '1. FOTO KANON adalah ACUAN MUTLAK — dan yang dilampirkan HARUS satu foto\n' +
+    '   tunggal, yaitu panel foto kanon yang sudah dipotong dari lembar modul 01.\n' +
+    '   BUKAN lembar utuhnya.\n' +
+    '\n' +
+    '   PERIKSA DULU sebelum memanggil alat gambar: kalau gambar yang dilampirkan\n' +
+    '   berupa lembar berisi banyak panel, kartu identitas, atau baris nama\n' +
+    '   berkas — BERHENTI. Katakan bahwa acuannya masih lembar utuh dan minta\n' +
+    '   saya melampirkan potongan foto kanonnya saja.\n' +
+    '   ALASANNYA: alat gambar mempertahankan komposisi gambar acuan. Memberi\n' +
+    '   kisi sebagai acuan akan mengembalikan kisi, apa pun larangannya. Ini\n' +
+    '   bukan soal kepatuhan; ini cara alatnya bekerja.\n' +
+    '\n' +
+    '   Kalau acuannya sudah berupa foto tunggal, pakai sebagai rujukan wajah\n' +
+    '   di setiap pemanggilan. Jangan pernah mengirim gambar berpanel ke alat\n' +
+    '   gambar sebagai acuan.\n' +
     '\n' +
     '   YANG HARUS KELUAR DARI SETIAP PEMANGGILAN: SATU foto baru, SATU orang,\n' +
     '   SATU look, satu bingkai penuh. Foto itu belum pernah ada sebelumnya.\n' +
@@ -1965,12 +1976,8 @@ function blokTokoh(f) {
     '  - bentuk kelopak mata: monolid atau berlipat\n' +
     'Empat hal ini yang membuat tokoh bisa dikenali. Kalau tidak disebut,\n' +
     'wajahnya keluar sebagai orang lain yang kebetulan sesuai deskripsi.\n\n' +
-    'LEMBAR ITU MEMUAT BANYAK PANEL WAJAH DARI ORANG YANG SAMA — sudut, ekspresi,\n' +
-    'dan close-up. Semuanya SATU orang. Jangan memperlakukan panel yang berbeda\n' +
-    'sebagai orang yang berbeda, dan jangan memakai satu panel sebagai foto\n' +
-    'kanon terpisah.\n' +
-    'Kalau lembar atau PDF tidak ada di chat ini, berhenti dan minta yang kurang.\n' +
-    'Jangan mengarang wajah.\n'
+    'Kalau foto kanon atau PDF tidak ada di chat ini, berhenti dan minta yang\n' +
+    'kurang. Jangan mengarang wajah.\n'
   );
 }
 
@@ -2131,9 +2138,12 @@ function blokGambar(f) {
   var kata = ['', '', 'DUA', 'TIGA', 'EMPAT'][jml];
   return (
     kata + ' LAMPIRAN DI CHAT INI — PERANNYA BERBEDA. JANGAN DITUKAR.\n' +
-    'LEMBAR WAJAH (PNG) : acuan mutlak identitas. Wajah, kulit, rambut, rambut\n' +
-    '                     wajah, asimetri, bahu, leher. JANGAN ambil busana\n' +
-    '                     maupun latarnya — keduanya ditetapkan di bawah.\n' +
+    'FOTO KANON (1 foto) : acuan mutlak identitas — SATU foto tunggal hasil\n' +
+    '                     potong dari lembar modul 01, bukan lembar utuh.\n' +
+    '                     Ambil wajah, kulit, rambut, rambut wajah, asimetri,\n' +
+    '                     bahu, leher. JANGAN ambil busana maupun latarnya.\n' +
+    '                     Kalau yang terlampir masih lembar berpanel, berhenti\n' +
+    '                     dan minta potongannya.\n' +
     'PDF modul 01       : rincian kecil. Master Descriptor blok 3 dan Profil\n' +
     '                     Tubuh blok 5, disalin utuh.\n' +
     (ref
@@ -2149,7 +2159,7 @@ function blokGambar(f) {
         '                     terlihat di dalamnya. Kalau ada orang di gambar itu,\n' +
         '                     abaikan sepenuhnya.\n'
       : '') +
-    'Wajah HANYA dari LEMBAR WAJAH. Tidak satu ciri pun boleh datang dari\n' +
+    'Wajah HANYA dari FOTO KANON. Tidak satu ciri pun boleh datang dari\n' +
     'lampiran lain. Kalau jumlah lampiran di chat ini bukan ' + jml + ', berhenti dan\n' +
     'sebutkan yang mana yang kurang atau berlebih.\n\n'
   );
