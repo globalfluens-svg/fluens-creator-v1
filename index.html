@@ -1956,7 +1956,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
   },
 ];
 const bc={id:"m2",tab:"02 · TAMPILAN",title:["Atur seluruh ","identitas visual",", dari gaya dan busana sampai material, rias, latar, dan pencahayaan, agar setiap look terasa konsisten."],control:"select",panelTitle:"Brief Style",ctaLabel:"Buka di TAMPILAN",sections:vc(fs)},gs=()=>xc(fs);
-const KODE_GERBANG = 'GAYA-K9VP-6D53';
+const KODE_GERBANG = 'GAYA-M5JW-8T64';
 
 /* Dua frasa tanda kehidupan yang disuntik di mode referensi — tidak
    terbaca dari foto, dan pilihannya tidak kritis, jadi tanpa UI. */
@@ -2279,17 +2279,38 @@ function blokReferensi(f) {
   var t = (f.bahanCad_v || []).map(function (r) { return Q.bahan[r]; }),
     n = TANDA_OTOMATIS.map(function (r) { return Q.tanda[r]; });
   return (
-    'GAMBAR BUSANA — PERIKSA BENTUKNYA DULU\n' +
-    'Yang bekerja: SATU outfit utuh dalam satu bingkai — dipakai orang,\n' +
-    'manekin, atau digeletakkan rapi sebagai satu setelan.\n' +
-    'Yang TIDAK bekerja: kolase produk — beberapa benda terpisah berlatar\n' +
-    'putih, papan moodboard, tangkapan layar katalog, atau kisi berisi\n' +
-    'beberapa outfit. Bentuk berpanel membuat referensinya tidak terbaca\n' +
-    'sebagai satu setelan, dan busananya akan diabaikan sepenuhnya.\n' +
-    'KALAU yang terlampir berupa kolase atau beberapa benda terpisah:\n' +
-    'jangan diam-diam mengarang busana lain. Sebutkan bahwa referensinya\n' +
-    'berupa kolase, tulis potongan apa saja yang bisa kamu kenali, lalu\n' +
-    'minta saya melampirkan satu outfit utuh.\n\n' +
+    'GAMBAR BUSANA — TENTUKAN JENISNYA DULU, LALU SESUAIKAN\n' +
+    'Tulis jenisnya di blok 8 SEBELUM menyusun look. Tiga kemungkinan:\n' +
+    '\n' +
+    'JENIS A — SETELAN UTUH. Atasan, bawahan, dan alas kaki terlihat dalam satu\n' +
+    '  bingkai, dipakai orang, manekin, atau ditata sebagai satu setelan.\n' +
+    '  Perlakuan: seluruh setelan jadi REFERENSI FINAL. Lanjut ke LANGKAH 0.\n' +
+    '\n' +
+    'JENIS B — SATU POTONG TUNGGAL. Hanya satu potong yang terlihat, misalnya\n' +
+    '  atasan saja, gaun saja, atau luaran saja.\n' +
+    '  Perlakuan: potongan itu jadi JANGKAR. Ia hadir di SEMUA look, dijelaskan\n' +
+    '  sekali dengan tepat lalu disalin persis ke setiap prompt — potongan,\n' +
+    '  bahan, warna, panjang, garis leher, dan fitnya tidak berubah.\n' +
+    '  Sisa outfit — bawahan, alas kaki, lapisan — dibangun dari nilai brief:\n' +
+    '  bahan cadangan, alas kaki cadangan, palet, dan siluet. Sisa itu WAJIB\n' +
+    '  berganti antar look; jangkar yang tetap, sisanya yang bervariasi.\n' +
+    '  Ini yang paling sering dipakai untuk menjual satu produk.\n' +
+    '\n' +
+    'JENIS C — KOLASE ATAU BEBERAPA BENDA TERPISAH. Papan moodboard, tangkapan\n' +
+    '  layar katalog, beberapa produk berlatar putih, atau kisi beberapa outfit.\n' +
+    '  Perlakuan: JANGAN diam-diam mengarang busana lain — itu sudah gagal tiga\n' +
+    '  kali dan hasilnya sama sekali tidak menyerupai referensi.\n' +
+    '  Tulis dulu daftar potongan yang bisa kamu kenali, satu baris per potongan.\n' +
+    '  Lalu pakai potongan yang PALING MENONJOL sebagai JANGKAR, dan perlakukan\n' +
+    '  seperti JENIS B. Potongan lain yang bisa dikenali dipakai sebagai variasi\n' +
+    '  di look yang berbeda.\n' +
+    '  Tulis di blok 8 potongan mana yang tidak dipakai beserta alasannya.\n' +
+    '  Berhenti dan minta gambar lain HANYA kalau tidak ada satu potongan pun\n' +
+    '  yang bisa kamu kenali.\n' +
+    '\n' +
+    'Kalau gambar busana memuat huruf, angka, logo, atau lencana: potongannya\n' +
+    'tetap dipakai, tapi permukaannya dibuat POLOS. Sebutkan penggantian itu di\n' +
+    'blok 8. Huruf tidak pernah keluar sama dua kali antar render.\n\n' +
     'LANGKAH 0 — SALIN REFERENSI BUSANA JADI TEKS SEBELUM MENYUSUN LOOK\n' +
     'Tulis satu kalimat Inggris yang mendeskripsikan outfit di gambar\n' +
     'BUSANA, urut: luaran → atasan → bawahan → kaus kaki → alas kaki.\n' +
@@ -2494,7 +2515,16 @@ Setelah look 1 selesai, BERHENTI dan tunggu saya menulis "lanjut".
 Rinciannya ada di bagian INSTRUKSI paling bawah.
 
 `
-    : '') + `SATU TOKOH = SATU CHAT BARU — PERIKSA SEBELUM MULAI
+    : '') + `JUMLAH LOOK — ANGKANYA MENGIKAT
+Set ini berisi TEPAT ` + jml + ` look. Bukan lebih, bukan kurang.
+Hitung sebelum menampilkan: kalau lembar atau galeri yang kamu hasilkan
+memuat jumlah panel yang berbeda dari ` + jml + `, itu GAGAL — buang dan ulangi
+dengan jumlah yang benar. Jangan menambah look "bonus", jangan membulatkan
+ke angka yang lebih enak dibagi, dan jangan membuat lembar kedua dengan
+jumlah berbeda.
+Nomor look berjalan 1 sampai ` + jml + `, berurutan, tidak dobel, tidak loncat.
+
+SATU TOKOH = SATU CHAT BARU — PERIKSA SEBELUM MULAI
 Chat ini harus kosong sebelum brief ini ditempel. Kalau di sini sudah ada
 gambar, lembar, tokoh, atau pekerjaan lain sebelumnya: BERHENTI, katakan
 chatnya sudah terpakai, dan minta saya membuka chat baru.
@@ -2674,6 +2704,7 @@ DAFTAR PERIKSA — CETAK PER LOOK, CENTANG SEBELUM LANJUT KE LOOK BERIKUTNYA
     '[ ] ekspresi tidak menutup mata, mengatupkan rahang, atau memperlihatkan gigi\n' +
     '[ ] gaya pengambilan SAMA di semua look — ini tidak pernah diacak\n' +
 `[ ] siluet sama dengan look sebelumnya
+[ ] nomor look ini masih di dalam rentang 1 sampai ` + jml + `
 [ ] rasio gambar disebut
 ` +
     (ref ? '[ ] tidak ada ciri wajah, kulit, atau rambut dari gambar BUSANA\n' : '') +
