@@ -1956,7 +1956,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
   },
 ];
 const bc={id:"m2",tab:"02 · TAMPILAN",title:["Atur seluruh ","identitas visual",", dari gaya dan busana sampai material, rias, latar, dan pencahayaan, agar setiap look terasa konsisten."],control:"select",panelTitle:"Brief Style",ctaLabel:"Buka di TAMPILAN",sections:vc(fs)},gs=()=>xc(fs);
-const KODE_GERBANG = 'GAYA-M5JW-8T64';
+const KODE_GERBANG = 'GAYA-P8CX-3R95';
 
 /* Dua frasa tanda kehidupan yang disuntik di mode referensi — tidak
    terbaca dari foto, dan pilihannya tidak kritis, jadi tanpa UI. */
@@ -2275,9 +2275,7 @@ function blokLatarReferensi(f) {
   );
 }
 
-function blokReferensi(f) {
-  var t = (f.bahanCad_v || []).map(function (r) { return Q.bahan[r]; }),
-    n = TANDA_OTOMATIS.map(function (r) { return Q.tanda[r]; });
+function blokJenisBusana() {
   return (
     'GAMBAR BUSANA — TENTUKAN JENISNYA DULU, LALU SESUAIKAN\n' +
     'Tulis jenisnya di blok 8 SEBELUM menyusun look. Tiga kemungkinan:\n' +
@@ -2295,6 +2293,10 @@ function blokReferensi(f) {
     '  bahan cadangan, alas kaki cadangan, palet, dan siluet. Sisa itu WAJIB\n' +
     '  berganti antar look; jangkar yang tetap, sisanya yang bervariasi.\n' +
     '  Ini yang paling sering dipakai untuk menjual satu produk.\n' +
+    '  JANGKAR ditulis sebagai satu frasa Inggris SEKALI, lalu disalin PERSIS\n' +
+    '  SAMA ke setiap prompt look — sama seperti Master Descriptor. Menulis\n' +
+    '  "pakai jangkar yang sama" tidak bekerja; hanya frasa yang disalin yang\n' +
+    '  membuat potongannya benar-benar sama antar look.\n' +
     '\n' +
     'JENIS C — KOLASE ATAU BEBERAPA BENDA TERPISAH. Papan moodboard, tangkapan\n' +
     '  layar katalog, beberapa produk berlatar putih, atau kisi beberapa outfit.\n' +
@@ -2310,7 +2312,14 @@ function blokReferensi(f) {
     '\n' +
     'Kalau gambar busana memuat huruf, angka, logo, atau lencana: potongannya\n' +
     'tetap dipakai, tapi permukaannya dibuat POLOS. Sebutkan penggantian itu di\n' +
-    'blok 8. Huruf tidak pernah keluar sama dua kali antar render.\n\n' +
+    'blok 8. Huruf tidak pernah keluar sama dua kali antar render.\n\n'
+  );
+}
+
+function blokReferensi(f) {
+  var t = (f.bahanCad_v || []).map(function (r) { return Q.bahan[r]; }),
+    n = TANDA_OTOMATIS.map(function (r) { return Q.tanda[r]; });
+  return (
     'LANGKAH 0 — SALIN REFERENSI BUSANA JADI TEKS SEBELUM MENYUSUN LOOK\n' +
     'Tulis satu kalimat Inggris yang mendeskripsikan outfit di gambar\n' +
     'BUSANA, urut: luaran → atasan → bawahan → kaus kaki → alas kaki.\n' +
@@ -2524,7 +2533,7 @@ ke angka yang lebih enak dibagi, dan jangan membuat lembar kedua dengan
 jumlah berbeda.
 Nomor look berjalan 1 sampai ` + jml + `, berurutan, tidak dobel, tidak loncat.
 
-SATU TOKOH = SATU CHAT BARU — PERIKSA SEBELUM MULAI
+` + (ref ? blokJenisBusana() + '\n' : '') + `SATU TOKOH = SATU CHAT BARU — PERIKSA SEBELUM MULAI
 Chat ini harus kosong sebelum brief ini ditempel. Kalau di sini sudah ada
 gambar, lembar, tokoh, atau pekerjaan lain sebelumnya: BERHENTI, katakan
 chatnya sudah terpakai, dan minta saya membuka chat baru.
@@ -2707,7 +2716,11 @@ DAFTAR PERIKSA — CETAK PER LOOK, CENTANG SEBELUM LANJUT KE LOOK BERIKUTNYA
 [ ] nomor look ini masih di dalam rentang 1 sampai ` + jml + `
 [ ] rasio gambar disebut
 ` +
-    (ref ? '[ ] tidak ada ciri wajah, kulit, atau rambut dari gambar BUSANA\n' : '') +
+    (ref
+      ? '[ ] tidak ada ciri wajah, kulit, atau rambut dari gambar BUSANA\n' +
+        '[ ] frasa JANGKAR tersalin persis sama seperti di look sebelumnya\n' +
+        '[ ] sisa outfit di luar jangkar BEDA dari look sebelumnya\n'
+      : '') +
     ((ref && f.hijab_v === 'ya') || (!ref && muslim)
       ? '[ ] empat baris penutupan hijab ada di prompt look ini\n'
       : '') +
