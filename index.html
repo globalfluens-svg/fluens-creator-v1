@@ -1272,12 +1272,32 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
         ],
       },
       {
+        k: 'posemode',
+        t: 'radio',
+        l: 'Pose per look',
+        note: 'pilih sendiri dari daftar peran ini, biarkan aplikasi memilihkan, atau tulis sendiri',
+        def: 0,
+        o: [
+          ['pilih', 'Pilih dari daftar'],
+          ['rekom', '[REKOMENDASIKAN]'],
+          ['manual', '[ISI MANUAL]'],
+        ],
+      },
+      {
+        k: 'posemanual',
+        t: 'area',
+        l: 'Pose yang saya tulis sendiri',
+        note: 'satu baris per look — baris 1 untuk look 1, dan seterusnya. Kalau cuma satu baris, seluruh look memakai baris itu. Aplikasi TIDAK bisa memeriksanya terhadap framing, sudut, maupun perabot di latar.',
+        ph: 'mis. berdiri menyandar ke tembok, satu kaki ditekuk\nduduk di anak tangga, siku di lutut',
+        show: (e) => e.posemode === 'manual',
+      },
+      {
         k: 'pose_amb',
         t: 'multi',
         max: 12,
         l: 'Pose per look',
         note: 'khusus peran Brand ambassador — pilih beberapa, aplikasi yang menyebar per look',
-        show: (e) => e.peran === 'amb',
+        show: (e) => e.peran === 'amb' && e.posemode === 'pilih',
         o: [
           ['amb_hero', 'Hero standing'],
           ['amb_pinggang', 'Tangan di pinggang'],
@@ -1299,7 +1319,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
         max: 15,
         l: 'Pose per look',
         note: 'khusus peran AI influencer / KOL — pilih beberapa, aplikasi yang menyebar per look',
-        show: (e) => e.peran === 'inf',
+        show: (e) => e.peran === 'inf' && e.posemode === 'pilih',
         o: [
           ['inf_gestur', 'Bicara ke kamera (gestur tangan)'],
           ['inf_tunjuklensa', 'Menunjuk ke kamera'],
@@ -1324,7 +1344,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
         max: 12,
         l: 'Pose per look',
         note: 'khusus peran Reviewer produk / UGC — pilih beberapa, aplikasi yang menyebar per look',
-        show: (e) => e.peran === 'ugc',
+        show: (e) => e.peran === 'ugc' && e.posemode === 'pilih',
         o: [
           ['ugc_hero', 'Produk di depan dada'],
           ['ugc_satutangan', 'Satu tangan pegang, satu menunjuk'],
@@ -1346,7 +1366,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
         max: 14,
         l: 'Pose per look',
         note: 'khusus peran Edukasi — pilih beberapa, aplikasi yang menyebar per look',
-        show: (e) => e.peran === 'edu',
+        show: (e) => e.peran === 'edu' && e.posemode === 'pilih',
         o: [
           ['edu_jelaskan', 'Dua telapak terbuka menjelaskan'],
           ['edu_telunjuk', 'Telunjuk naik, poin penting'],
@@ -2066,7 +2086,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
   },
 ];
 const bc={id:"m2",tab:"02 · TAMPILAN",title:["Atur seluruh ","identitas visual",", dari gaya dan busana sampai material, rias, latar, dan pencahayaan, agar setiap look terasa konsisten."],control:"select",panelTitle:"Brief Style",ctaLabel:"Buka di TAMPILAN",sections:vc(fs)},gs=()=>xc(fs);
-const KODE_GERBANG = 'GAYA-W5NJ-6X03';
+const KODE_GERBANG = 'GAYA-C9WD-1J46';
 
 /* Dua frasa tanda kehidupan yang disuntik di mode referensi — tidak
    terbaca dari foto, dan pilihannya tidak kritis, jadi tanpa UI. */
@@ -2095,7 +2115,7 @@ const POSE_META = {
   amb_jalanmaju: { bingkai: 3, depan: true,  perabot: null,    properti: false, duaTangan: false, sudut: null },
   amb_jalansisi: { bingkai: 3, depan: false, perabot: null,    properti: false, duaTangan: false, sudut: null },
   amb_bahu:      { bingkai: 2, depan: false, perabot: null,    properti: false, duaTangan: false, sudut: null },
-  amb_duduk:     { bingkai: 2, depan: true,  perabot: 'kursi', properti: false, duaTangan: true,  sudut: null },
+  amb_duduk:     { bingkai: 4, depan: true,  perabot: 'kursi', properti: false, duaTangan: true,  sudut: null },
   amb_sandar:    { bingkai: 3, depan: true,  perabot: 'meja',  properti: false, duaTangan: false, sudut: null },
   amb_sambut:    { bingkai: 2, depan: true,  perabot: null,    properti: false, duaTangan: true,  sudut: null },
   amb_tiba:      { bingkai: 4, depan: true,  perabot: null,    properti: true,  duaTangan: false, sudut: null },
@@ -2116,7 +2136,7 @@ const POSE_META = {
   inf_scroll:       { bingkai: 2, depan: true, perabot: null,    properti: true,  duaTangan: true,  sudut: null },
   inf_selfie:       { bingkai: 1, depan: true, perabot: null,    properti: true,  duaTangan: false, sudut: 'selfie' },
   inf_gelas:        { bingkai: 1, depan: true, perabot: null,    properti: true,  duaTangan: true,  sudut: null },
-  inf_dudukcondong: { bingkai: 2, depan: true, perabot: 'kursi', properti: false, duaTangan: true,  sudut: null },
+  inf_dudukcondong: { bingkai: 4, depan: true, perabot: 'kursi', properti: false, duaTangan: true,  sudut: null },
   inf_reaksi:       { bingkai: 1, depan: true, perabot: null,    properti: false, duaTangan: true,  sudut: null },
   inf_jari:         { bingkai: 1, depan: true, perabot: null,    properti: false, duaTangan: false, sudut: null, jari: true },
   inf_condong:      { bingkai: 1, depan: true, perabot: null,    properti: false, duaTangan: false, sudut: null },
@@ -2218,7 +2238,7 @@ function saringPose(f, refL, pakaiPreset) {
   var h = { lolos: [], buang: [], perabotTakDiketahui: false };
   var kunci = kunciPose(f);
   if (!kunci) return h;
-  var dipilih = f[kunci + '_v'] || [];
+  var dipilih = poseTerpilih(f);
   if (!dipilih.length) return h;
 
   var batas = FRAME_BATAS[f.frame_v] || 4;
@@ -2267,6 +2287,28 @@ function saringPose(f, refL, pakaiPreset) {
   return h;
 }
 
+/* Mode [REKOMENDASIKAN] berarti aplikasi yang memilihkan: ambil SELURUH daftar
+   tertutup peran itu, lalu biarkan penyaring framing, sudut, dan perabot yang
+   memangkasnya. Yang sampai ke model tetap tabel jadi — disalin, bukan dipilih
+   ulang. Menyerahkan pemilihan ke model berarti MERAKIT, dan aturan merakit
+   tidak pernah berhasil di modul ini. */
+function poseTerpilih(f) {
+  var kunci = kunciPose(f);
+  if (!kunci) return [];
+  if (f.posemode_v === 'manual') return [];
+  if (f.posemode_v === 'rekom')
+    return opsiField(kunci).map(function (x) { return x[0]; });
+  return f[kunci + '_v'] || [];
+}
+
+function barisManualPose(f) {
+  var baris = (f.posemanual || '').split('\n');
+  var out = [];
+  for (var i = 0; i < baris.length; i++)
+    if (baris[i].trim()) out.push(baris[i].trim());
+  return out;
+}
+
 function labelPose(f, k) {
   var kunci = kunciPose(f);
   var o = kunci ? opsiField(kunci) : [];
@@ -2277,10 +2319,39 @@ function labelPose(f, k) {
 /* Sebarannya dihitung di sini, bukan diserahkan ke model. Kedua masukannya
    sudah pasti saat brief disusun: jumlah look dan pose terpilih. Aturan yang
    menyuruh MENYALIN berhasil; yang menyuruh MERAKIT tidak. */
+function blokPoseManual(f, jml) {
+  var baris = barisManualPose(f);
+  if (!baris.length) return '';
+  var out =
+    'POSE PER LOOK — SAYA ISI SENDIRI\n' +
+    'Baris di bawah saya tulis sendiri, bukan dari daftar tertutup. Terjemahkan\n' +
+    'tiap baris jadi SATU frasa Inggris yang lugas, lalu salin ke slot\n' +
+    '<POSE look ini> di CETAK BIRU. Frasa itu hanya boleh menyebut badan,\n' +
+    'lengan, tangan, tumpuan berat, dan kaki — jangan menambah benda, ekspresi,\n' +
+    'arah tatapan, latar, atau framing yang tidak saya sebut.\n' +
+    'Look 1 memakai baris look 1, dan seterusnya sampai look ' + jml + '.\n\n';
+  for (var i = 1; i <= jml; i++)
+    out += '  look ' + i + ' : ' + baris[(i - 1) % baris.length] + '\n';
+  out +=
+    '\n! Pose yang saya tulis sendiri TIDAK diperiksa aplikasi terhadap framing,\n' +
+    '  sudut pengambilan, maupun perabot di latar. Kalau posenya menuntut bagian\n' +
+    '  badan yang berada di luar batas potong framing, atau menuntut kursi atau\n' +
+    '  meja yang tidak ada di LATAR FINAL, BERHENTI dan minta saya memperbaikinya.\n' +
+    '! Kalau baris yang saya tulis meminta tulisan, huruf, angka, logo, atau merek\n' +
+    '  pada busana maupun properti: itu BENTROK dengan ATURAN KERAS. Yang menang\n' +
+    '  ATURAN KERAS. Ganti jadi permukaan polos, lalu tulis penggantinya di blok 8.\n' +
+    'Pose HANYA mengatur badan, lengan, tangan, tumpuan berat, dan kaki. Pose\n' +
+    'tidak mengubah ekspresi, arah tatapan, sudut kamera, sudut pengambilan,\n' +
+    'latar, maupun framing — semuanya punya barisnya sendiri dan tetap berlaku\n' +
+    'apa adanya.\n\n';
+  return out;
+}
+
 function blokPose(f, jml, refL, pakaiPreset) {
+  if (f.posemode_v === 'manual') return blokPoseManual(f, jml);
   var kunci = kunciPose(f);
   if (!kunci) return '';
-  var dipilih = f[kunci + '_v'] || [];
+  var dipilih = poseTerpilih(f);
   if (!dipilih.length) return '';
 
   var h = saringPose(f, refL, pakaiPreset);
@@ -2290,17 +2361,41 @@ function blokPose(f, jml, refL, pakaiPreset) {
     buangTeks += '  - ' + labelPose(f, h.buang[i][0]) + ' — ' + h.buang[i][1] + '\n';
 
   if (!h.lolos.length) {
+    /* Buntu total tidak berguna kalau briefnya tidak menyebut jalan keluarnya.
+       Jalankan ulang penyaring dengan satu setelan dilonggarkan, lalu sebutkan
+       mana yang membuka kembali daftarnya. */
+    var saran = '';
+    var lebar = Object.assign({}, f, { frame_v: 'editorialF', frame: 'Editorial seluruh badan' });
+    var bukanSelfie = Object.assign({}, f, { sudut_v: 'orang', sudut: 'Difoto orang lain' });
+    var nLebar = saringPose(lebar, refL, pakaiPreset).lolos.length;
+    var nBukanSelfie = saringPose(bukanSelfie, refL, pakaiPreset).lolos.length;
+    if (nLebar)
+      saran += '  - Longgarkan Framing ke bingkai yang lebih lebar: ' + nLebar +
+        ' pose kembali lolos.\n';
+    if (nBukanSelfie)
+      saran += '  - Ganti Sudut pengambilan jadi bukan selfie: ' + nBukanSelfie +
+        ' pose kembali lolos.\n';
+    if (!saran)
+      saran += '  - Tidak ada satu setelan pun yang membukanya; pilih pose lain\n' +
+        '    untuk peran ini.\n';
+
     return (
       'POSE PER LOOK — TIDAK ADA YANG BERLAKU\n' +
-      'Semua pose yang saya pilih tersaring keluar oleh framing dan latar yang\n' +
-      'saya pilih juga. Untuk set ini TIDAK ADA baris pose: jangan menambah slot\n' +
-      'pose ke dalam prompt, dan jangan mengarang posenya sendiri.\n' +
-      'Yang tersaring:\n' + buangTeks + '\n'
+      'Semua pose yang saya pilih tersaring keluar oleh framing, sudut, atau latar\n' +
+      'yang saya pilih juga. Untuk set ini TIDAK ADA baris pose: jangan menambah\n' +
+      'slot pose ke dalam prompt, dan jangan mengarang posenya sendiri.\n' +
+      'Yang tersaring:\n' + buangTeks +
+      'Kalau saya minta posenya dipakai, ini yang harus saya ubah:\n' + saran + '\n'
     );
   }
 
   var out =
     'POSE PER LOOK — SUDAH DITETAPKAN, TINGGAL DISALIN\n' +
+    (f.posemode_v === 'rekom'
+      ? 'Posenya tidak saya pilih satu per satu. Aplikasi mengambil seluruh daftar\n' +
+        'tertutup peran ini, menyaringnya terhadap framing, sudut pengambilan, dan\n' +
+        'perabot di latar, lalu menyebar sisanya. Hasilnya tetap tabel di bawah.\n'
+      : '') +
     'Baris di bawah bukan saran dan bukan daftar untuk dipilih. Look 1 memakai\n' +
     'baris look 1, look 2 memakai baris look 2, sampai look ' + jml + '.\n' +
     'Salin frasa Inggrisnya APA ADANYA ke slot <POSE look ini> di CETAK BIRU.\n' +
@@ -2410,10 +2505,21 @@ function butuhProduk(f, refL, pakaiPreset) {
   return false;
 }
 
+/* Satu syarat dipakai bersama oleh blok PRODUK FINAL dan slot <PRODUK FINAL>
+   di CETAK BIRU. Kalau keduanya dihitung terpisah, brief bisa meminta kalimat
+   produk tanpa menyediakan tempat untuk menaruhnya — dan produknya hilang.
+   Nilai kolom produk juga hanya berlaku untuk peran yang punya pose berproduk;
+   field tersembunyi tetap menyimpan isinya waktu peran diganti. */
+function produkDipakai(f, refL, pakaiPreset) {
+  if (f.peran_v !== 'ugc') return false;
+  if ((f.produk || '').trim()) return true;
+  return butuhProduk(f, refL, pakaiPreset);
+}
+
 function blokProduk(f, refL, pakaiPreset) {
+  if (!produkDipakai(f, refL, pakaiPreset)) return '';
   var perlu = butuhProduk(f, refL, pakaiPreset);
   var isi = (f.produk || '').trim();
-  if (!perlu && !isi) return '';
 
   var out = 'PRODUK FINAL — TULIS SEKALI, LALU SALIN KE SETIAP PROMPT\n';
   if (!isi) {
@@ -2519,10 +2625,65 @@ function opsiField(k) {
 
 /* Daftar tertutup yang ikut dicetak saat user memilih "rekomendasikan".
    Model MEMILIH lalu MENYALIN — bukan menyusun frasa sendiri. */
-function daftarKandidat(k, peta) {
-  return opsiField(k)
-    .filter(function (o) { return o[0] !== 'manual' && o[0] !== 'rekom'; })
-    .map(function (o) { return '      ' + o[1] + ' → ' + peta[o[0]]; })
+/* ---------- pengacak daftar rekomendasi ----------
+   Model punya nilai favorit dan akan memilihnya lagi dan lagi kalau daftarnya
+   selalu tercetak dalam urutan yang sama. Jadi urutannya diacak APLIKASI, dan
+   briefnya menyuruh mengambil dari atas. Yang diacak urutannya, bukan
+   keputusannya — input yang bertentangan tetap boleh memveto.
+   Benihnya diturunkan dari seluruh isi form, jadi: form yang sama menghasilkan
+   urutan yang sama (bisa diulang), tokoh atau setelan yang berbeda menghasilkan
+   urutan yang berbeda. Ubah satu kolom apa pun untuk mengocok ulang. */
+function benihTeks(s) {
+  var h = 2166136261;
+  for (var i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+}
+
+function benihField(f, k) {
+  var s = 'k=' + k + ';';
+  for (var n in f)
+    if (Object.prototype.hasOwnProperty.call(f, n)) s += n + '=' + f[n] + ';';
+  return benihTeks(s);
+}
+
+function kocok(daftar, benih) {
+  var a = daftar.slice();
+  var r = benih >>> 0;
+  function berikut() {
+    r = (r + 0x6d2b79f5) | 0;
+    var t = Math.imul(r ^ (r >>> 15), 1 | r);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  }
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(berikut() * (i + 1));
+    var s = a[i];
+    a[i] = a[j];
+    a[j] = s;
+  }
+  return a;
+}
+
+function kandidatAcak(f, k) {
+  return kocok(
+    opsiField(k).filter(function (o) {
+      return o[0] !== 'manual' && o[0] !== 'rekom';
+    }),
+    benihField(f, k)
+  );
+}
+
+function daftarKandidat(k, peta, f) {
+  var o = f
+    ? kandidatAcak(f, k)
+    : opsiField(k).filter(function (x) {
+        return x[0] !== 'manual' && x[0] !== 'rekom';
+      });
+  return o
+    .map(function (x) { return '      ' + x[1] + ' → ' + peta[x[0]]; })
     .join('\n');
 }
 
@@ -2551,6 +2712,14 @@ function dasarKeputusan(f) {
   return d.join(' · ');
 }
 
+function urutanAcakPerLook(f, k, jml) {
+  var a = kandidatAcak(f, k);
+  var out = '';
+  for (var i = 1; i <= jml; i++)
+    out += '      look ' + i + ' : ' + a[(i - 1) % a.length][1] + '\n';
+  return out;
+}
+
 function barisRekom(f, label, k, peta, jumlahPilih, catatan) {
   return (
     '- ' + label + ' : [REKOMENDASIKAN]\n' +
@@ -2558,9 +2727,18 @@ function barisRekom(f, label, k, peta, jumlahPilih, catatan) {
     '  apa adanya. Dilarang memakai nilai di luar daftar, dilarang menyusun frasa\n' +
     '  sendiri, dilarang menerjemahkan ulang.\n' +
     '  Dasarkan pada: ' + dasarKeputusan(f) + '\n' +
+    '  WAJIB DIACAK — jangan memakai nilai favorit.\n' +
+    '  Urutan daftar di bawah SUDAH diacak khusus untuk set ini, dan berbeda\n' +
+    '  untuk tokoh atau setelan yang berbeda. Ambil dari ATAS sebanyak yang\n' +
+    '  diminta: nilai pertama dulu, lalu ke bawah.\n' +
+    '  Nilai teratas hanya boleh dilewati kalau dia LANGSUNG melawan salah satu\n' +
+    '  input di atas. Kalau dilewati, sebutkan input mana yang dilanggar, lalu\n' +
+    '  ambil nilai BERIKUTNYA di daftar — bukan melompat ke nilai yang menurutmu\n' +
+    '  paling aman. Daftar ini bukan menu selera.\n' +
     (catatan ? '  ' + catatan + '\n' : '') +
-    '  DAFTAR:\n' + daftarKandidat(k, peta) + '\n' +
-    '  Tulis pilihanmu di blok yang bersangkutan beserta SATU kalimat alasan.\n'
+    '  DAFTAR — SUDAH DIACAK, AMBIL DARI ATAS:\n' + daftarKandidat(k, peta, f) + '\n' +
+    '  Tulis pilihanmu di blok yang bersangkutan beserta SATU kalimat alasan,\n' +
+    '  dan sebutkan nilai itu ada di urutan ke berapa.\n'
   );
 }
 
@@ -2576,10 +2754,18 @@ function barisRekomVariasi(f, label, k, peta, jml, catatan) {
     '  - Jangan mengulang nilai yang sama dua kali berturut-turut.\n' +
     '  - Kalau jumlah look lebih banyak dari isi daftar, boleh mengulang, tapi\n' +
     '    beri jarak minimal dua look.\n' +
-    '  - Pilih yang konteksnya masuk akal untuk look itu, jangan asal berputar\n' +
-    '    urut daftar.\n' +
+    '  - Urutannya sudah ditetapkan di bawah. Yang boleh kamu geser hanya baris\n' +
+    '    yang benar-benar melanggar input atau catatan, bukan yang kurang cocok\n' +
+    '    menurut selera.\n' +
+    '  WAJIB DIACAK — jangan memakai nilai favorit. Urutan di bawah SUDAH diacak\n' +
+    '  khusus untuk set ini. Pakai berurutan: look 1 ambil nilai pertama, look 2\n' +
+    '  nilai kedua, dan seterusnya, berputar kembali ke atas kalau habis.\n' +
+    '  Satu baris hanya boleh digeser kalau dia LANGSUNG melawan input di atas\n' +
+    '  atau melanggar catatan — sebutkan pelanggarannya, lalu geser ke nilai\n' +
+    '  BERIKUTNYA di daftar acak, bukan ke nilai favoritmu.\n' +
     (catatan ? '  ' + catatan + '\n' : '') +
-    '  DAFTAR:\n' + daftarKandidat(k, peta) + '\n' +
+    '  URUTAN ACAK UNTUK SET INI:\n' + urutanAcakPerLook(f, k, jml) +
+    '  DAFTAR — SUDAH DIACAK, AMBIL DARI ATAS:\n' + daftarKandidat(k, peta, f) + '\n' +
     '  Tulis satu kalimat alasan untuk pola sebarannya, bukan per look.\n'
   );
 }
@@ -2991,8 +3177,11 @@ function Df(f) {
   var muslim =
     ['syari', 'mlonggar', 'mmodern', 'mkasual'].indexOf(f.arah_v) > -1 ||
     (f.arah_v === 'manual' && f.hijab_v === 'ya');
-  var poseAktif = saringPose(f, refL, pakaiPreset).lolos.length > 0;
-  var produkAktif = butuhProduk(f, refL, pakaiPreset);
+  var poseAktif =
+    f.posemode_v === 'manual'
+      ? barisManualPose(f).length > 0
+      : saringPose(f, refL, pakaiPreset).lolos.length > 0;
+  var produkAktif = produkDipakai(f, refL, pakaiPreset);
 
   return (
 `=== FLUENS STYLE BRIEF — MODE ` + (ref ? 'REFERENSI' : 'ATUR SENDIRI') + ` ===
@@ -3049,7 +3238,7 @@ RIAS & AKSESORI
       : barisNilai(f, 'Tingkat rias ', 'rias', Q.rias, null)) +
     (f.ekspresi_v === 'rekom'
       ? barisRekomVariasi(f, 'Ekspresi     ', 'ekspresi', Q.ekspresi, jml,
-          'Enam nilai pertama sama dengan Set Ekspresi modul 01, jadi wajahnya sudah\n  terbukti bisa digambar. Enam terakhir tambahan yang aman.')
+          'Sebagian nilai di daftar ini sama dengan Set Ekspresi modul 01, jadi sudah\n  terbukti bisa digambar untuk wajah ini. Sisanya tambahan yang aman.\n  Urutan daftar diacak, jadi jangan menghitung posisi.')
       : barisNilai(f, 'Ekspresi     ', 'ekspresi', Q.ekspresi, null)) +
     (f.kuku_v === 'rekom'
       ? barisRekom(f, 'Kuku         ', 'kuku', Q.kuku, 'SATU',
@@ -3077,9 +3266,11 @@ LATAR & PENGAMBILAN — dipakai IDENTIK di semua look, jangan diganti di tengah 
         '    sisi yang tertutup tidak akan terlihat — itu wajar, jangan dipindahkan\n' +
         '    ke sisi lain supaya terlihat.\n'
       : '') +
-    '  Sudut kamera dipakai IDENTIK di semua look, sama seperti latar dan cahaya.\n' +
-    '  Sudut yang berganti antar look membuat bentuk wajah terbaca berbeda\n' +
-    '  walau tokohnya sama.\n' + `
+    (f.kamera_v === 'rekom'
+      ? ''
+      : '  Sudut kamera dipakai IDENTIK di semua look, sama seperti latar dan cahaya.\n' +
+        '  Sudut yang berganti antar look membuat bentuk wajah terbaca berbeda\n' +
+        '  walau tokohnya sama.\n') + `
 ` + (f.sudut_v === 'rekom'
       ? barisRekomVariasi(f, 'Sudut pengambilan', 'sudut', Q.sudut, jml,
           'Untuk katalog look, jaga mayoritas look TETAP bukan selfie — selfie\n  memakai lensa lebar yang mendistorsi wajah dan menutupi busana.')
