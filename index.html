@@ -2086,7 +2086,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
   },
 ];
 const bc={id:"m2",tab:"02 · TAMPILAN",title:["Atur seluruh ","identitas visual",", dari gaya dan busana sampai material, rias, latar, dan pencahayaan, agar setiap look terasa konsisten."],control:"select",panelTitle:"Brief Style",ctaLabel:"Buka di TAMPILAN",sections:vc(fs)},gs=()=>xc(fs);
-const KODE_GERBANG = 'GAYA-C9WD-1J46';
+const KODE_GERBANG = 'GAYA-J8SV-6N24';
 
 /* Dua frasa tanda kehidupan yang disuntik di mode referensi — tidak
    terbaca dari foto, dan pilihannya tidak kritis, jadi tanpa UI. */
@@ -2727,18 +2727,9 @@ function barisRekom(f, label, k, peta, jumlahPilih, catatan) {
     '  apa adanya. Dilarang memakai nilai di luar daftar, dilarang menyusun frasa\n' +
     '  sendiri, dilarang menerjemahkan ulang.\n' +
     '  Dasarkan pada: ' + dasarKeputusan(f) + '\n' +
-    '  WAJIB DIACAK — jangan memakai nilai favorit.\n' +
-    '  Urutan daftar di bawah SUDAH diacak khusus untuk set ini, dan berbeda\n' +
-    '  untuk tokoh atau setelan yang berbeda. Ambil dari ATAS sebanyak yang\n' +
-    '  diminta: nilai pertama dulu, lalu ke bawah.\n' +
-    '  Nilai teratas hanya boleh dilewati kalau dia LANGSUNG melawan salah satu\n' +
-    '  input di atas. Kalau dilewati, sebutkan input mana yang dilanggar, lalu\n' +
-    '  ambil nilai BERIKUTNYA di daftar — bukan melompat ke nilai yang menurutmu\n' +
-    '  paling aman. Daftar ini bukan menu selera.\n' +
     (catatan ? '  ' + catatan + '\n' : '') +
     '  DAFTAR — SUDAH DIACAK, AMBIL DARI ATAS:\n' + daftarKandidat(k, peta, f) + '\n' +
-    '  Tulis pilihanmu di blok yang bersangkutan beserta SATU kalimat alasan,\n' +
-    '  dan sebutkan nilai itu ada di urutan ke berapa.\n'
+    '  Tulis pilihanmu beserta SATU kalimat alasan dan urutan ke berapa.\n'
   );
 }
 
@@ -2754,15 +2745,7 @@ function barisRekomVariasi(f, label, k, peta, jml, catatan) {
     '  - Jangan mengulang nilai yang sama dua kali berturut-turut.\n' +
     '  - Kalau jumlah look lebih banyak dari isi daftar, boleh mengulang, tapi\n' +
     '    beri jarak minimal dua look.\n' +
-    '  - Urutannya sudah ditetapkan di bawah. Yang boleh kamu geser hanya baris\n' +
-    '    yang benar-benar melanggar input atau catatan, bukan yang kurang cocok\n' +
-    '    menurut selera.\n' +
-    '  WAJIB DIACAK — jangan memakai nilai favorit. Urutan di bawah SUDAH diacak\n' +
-    '  khusus untuk set ini. Pakai berurutan: look 1 ambil nilai pertama, look 2\n' +
-    '  nilai kedua, dan seterusnya, berputar kembali ke atas kalau habis.\n' +
-    '  Satu baris hanya boleh digeser kalau dia LANGSUNG melawan input di atas\n' +
-    '  atau melanggar catatan — sebutkan pelanggarannya, lalu geser ke nilai\n' +
-    '  BERIKUTNYA di daftar acak, bukan ke nilai favoritmu.\n' +
+    '  - Urutannya SUDAH ditetapkan di bawah dan sudah diacak. Pakai apa adanya.\n' +
     (catatan ? '  ' + catatan + '\n' : '') +
     '  URUTAN ACAK UNTUK SET INI:\n' + urutanAcakPerLook(f, k, jml) +
     '  DAFTAR — SUDAH DIACAK, AMBIL DARI ATAS:\n' + daftarKandidat(k, peta, f) + '\n' +
@@ -2809,6 +2792,17 @@ function kepalaRekom(f) {
       'frasa Inggrisnya disalin persis. Daftar itu tertutup.\n' +
       'Putuskan SEMUA baris rekomendasi SEBELUM menyusun look pertama, lalu pakai\n' +
       'keputusan yang sama di seluruh set. Dilarang berganti di tengah set.\n' +
+      'WAJIB DIACAK — berlaku untuk SEMUA baris [REKOMENDASIKAN] di bawah, jadi\n' +
+      'aturannya saya tulis sekali di sini saja.\n' +
+      'Urutan tiap daftar SUDAH saya acak khusus untuk set ini, dan berbeda untuk\n' +
+      'tokoh atau setelan yang berbeda. Ambil dari ATAS sebanyak yang diminta.\n' +
+      'Untuk baris BERBEDA TIAP LOOK: look 1 ambil nilai pertama, look 2 nilai\n' +
+      'kedua, dan seterusnya, berputar ke atas kalau daftarnya habis.\n' +
+      'Satu nilai hanya boleh dilewati kalau dia LANGSUNG melawan input atau\n' +
+      'catatan di baris itu. Kalau dilewati, sebutkan apa yang dilanggar lalu\n' +
+      'ambil nilai BERIKUTNYA — bukan melompat ke nilai yang menurutmu paling\n' +
+      'aman. Daftar ini bukan menu selera.\n' +
+      'Sebutkan nilai pilihanmu ada di urutan ke berapa.\n' +
       'Tulis seluruh keputusan rekomendasi di blok 6 sebagai satu daftar, masing-\n' +
       'masing dengan satu kalimat alasan yang menyebut input mana yang dipakai.\n' +
       'Baris yang SUDAH saya tentukan di brief ini disalin apa adanya ke blok 2-11.\n' +
@@ -2894,11 +2888,15 @@ function blokGambar(f) {
         '                     maupun latarnya.\n'
       : '') +
     (refL
-      ? 'Gambar LATAR       : sumber tempat dan cahaya. Ambil jenis ruang, material\n' +
-        '                     dan warna permukaan, arah serta sifat cahaya. JANGAN\n' +
-        '                     ambil orang, wajah, busana, teks, logo, atau merek yang\n' +
-        '                     terlihat di dalamnya. Kalau ada orang di gambar itu,\n' +
-        '                     abaikan sepenuhnya.\n'
+      ? 'Gambar LATAR       : ACUAN TEMPAT YANG MENGIKAT. Latar di setiap look harus\n' +
+        '                     SAMA dengan foto ini — jenis ruang, material dan warna\n' +
+        '                     permukaan, arah dan sifat cahaya, DAN semua yang\n' +
+        '                     terlihat di dalamnya: papan nama, spanduk, tulisan,\n' +
+        '                     logo, kendaraan, serta orang-orang yang lewat.\n' +
+        '                     Salin apa adanya, jangan dibersihkan, jangan diganti\n' +
+        '                     jadi permukaan polos, jangan dikarang ulang.\n' +
+        '                     Satu-satunya yang TIDAK boleh diambil dari foto ini:\n' +
+        '                     wajah dan busana orang di dalamnya.\n'
       : '') +
     'Wajah HANYA dari FOTO KANON. Tidak satu ciri pun boleh datang dari\n' +
     'lampiran lain. Kalau jumlah lampiran di chat ini bukan ' + jml + ', berhenti dan\n' +
@@ -2929,9 +2927,36 @@ function blokLatarReferensi(f) {
     'Kalau foto latar diambil dengan lensa lebar dari sudut tinggi, ruangnya\n' +
     'terbaca lebih dalam dari aslinya — justru di situ patokan skala paling\n' +
     'menentukan.\n' +
-    'Tanpa orang, tanpa busana, tanpa teks atau logo yang terbaca.\n' +
+    'SALIN TEMPATNYA APA ADANYA. Kalau di foto itu ada papan nama, spanduk,\n' +
+    'tulisan, logo, kendaraan, atau orang yang lewat, SEBUT semuanya di kalimat\n' +
+    'ini — termasuk bunyi tulisannya kalau terbaca. Latar bukan tempat yang\n' +
+    'dibersihkan; yang saya minta adalah tempat itu, bukan versi polosnya.\n' +
+    'Yang TIDAK boleh diambil dari foto ini hanya wajah dan busana orang di\n' +
+    'dalamnya — tokoh saya memakai wajah dari FOTO KANON dan busana dari brief.\n' +
     'Kalimat itu jadi LATAR FINAL. Setelah ditulis, jangan lihat gambarnya lagi.\n' +
     'Tulis kalimat ini di blok 6 baris "Latar tempat".\n\n' +
+    'PENYATUAN TOKOH DENGAN LATAR — SATU KALIMAT LAGI, WAJIB\n' +
+    'Skala saja tidak cukup. Tokoh dengan ukuran benar tapi cahaya, bayangan,\n' +
+    'dan perspektifnya tidak cocok akan terbaca seperti potongan yang ditempel\n' +
+    'ke foto tempat, bukan orang yang benar-benar berdiri di sana.\n' +
+    'Susun SATU kalimat Inggris lagi yang mengunci lima hal, semuanya dibaca\n' +
+    'dari gambar LATAR yang sama:\n' +
+    '  1. KAKI MENYENTUH TANAH. Sebut permukaan yang dipijak dan bahwa alas\n' +
+    '     kakinya benar-benar menapak di situ, bukan melayang.\n' +
+    '  2. BAYANGAN. Arah, panjang, dan ketajaman bayangan tokoh SAMA dengan\n' +
+    '     bayangan benda yang sudah ada di foto latar. Kalau di foto itu\n' +
+    '     bayangannya lembut dan pendek, bayangan tokoh juga begitu.\n' +
+    '  3. ARAH DAN SUHU CAHAYA di wajah dan busana sama dengan cahaya di latar.\n' +
+    '     Cahaya yang datang dari sisi berbeda adalah penanda tempelan paling\n' +
+    '     cepat terbaca mata.\n' +
+    '  4. GARIS MATA DAN PERSPEKTIF. Tinggi kamera dan garis cakrawala tokoh\n' +
+    '     sama dengan yang terbaca di foto latar.\n' +
+    '  5. LENSA DAN KETAJAMAN sama untuk tokoh dan latar — jangan tokoh tajam\n' +
+    '     di atas latar yang blur berat, atau sebaliknya.\n' +
+    'Tutup kalimat itu dengan larangan tempelan: tokoh bukan hasil potong dan\n' +
+    'tempel, tanpa garis tepi keras, tanpa halo, tanpa beda warna di batas badan.\n' +
+    'Kalimat itu jadi PENYATUAN TOKOH, disalin PERSIS SAMA ke setiap prompt look,\n' +
+    'sama seperti LATAR FINAL. Tulis juga di blok 6 baris "Latar tempat".\n\n' +
     'PENCAHAYAAN — DIBACA DARI GAMBAR LATAR YANG SAMA\n' +
     'Sebut arah cahaya, kekerasan bayangan, dan suhu warnanya dalam satu frasa\n' +
     'Inggris. Kalau cahaya di gambar itu rata dan tanpa arah, tulis apa adanya —\n' +
@@ -3063,7 +3088,10 @@ function blokAksVar(f) {
 /* Larangan saja tidak pernah cukup: model butuh BENTUK yang harus ditiru,
    bukan cuma daftar bentuk yang haram. Cetak biru di bawah mengubah
    "susun prompt" jadi "isi slot lalu salin". */
-function cetakBiru(f, adaPose, adaProduk) {
+/* Kalau latar datang dari foto acuan, larangan tulisan di LATAR harus dicabut —
+   kalau tidak, brief menyuruh menyalin tempat itu apa adanya sambil melarang
+   isinya. Larangan tulisan di BUSANA dan PROPERTI tetap berlaku penuh. */
+function cetakBiru(f, adaPose, adaProduk, refL) {
   return (
     'CETAK BIRU PROMPT LOOK — SALIN, ISI SLOT, KIRIM APA ADANYA\n' +
     'Alat gambar TIDAK membaca brief ini. Yang sampai ke sana hanya kalimat\n' +
@@ -3083,6 +3111,9 @@ function cetakBiru(f, adaPose, adaProduk) {
       ? '  <PRODUK FINAL — kalimat yang sama persis di setiap look>\n'
       : '') +
     '  <LATAR FINAL — kalimat yang sama persis di setiap look>\n' +
+    (refL
+      ? '  <PENYATUAN TOKOH — kalimat yang sama persis di setiap look>\n'
+      : '') +
     '  <pencahayaan>\n' +
     '  <sudut kamera>\n' +
     '  <sudut pengambilan>\n' +
@@ -3091,12 +3122,32 @@ function cetakBiru(f, adaPose, adaProduk) {
     '  Shoulder width, neck length, skin depth and undertone exactly as\n' +
     '  described above.\n' +
     '  plain fabric with no text, letters, numbers, logo, emblem, badge or\n' +
-    '  brand mark anywhere on the clothing, gloves, shorts, wraps or props,\n' +
-    '  and no writing, signage, banner or lettering anywhere in the background.\n' +
-    '  This is one single photograph, not a character sheet, not a contact\n' +
-    '  sheet, not a grid, not a collage, not a lookbook page. No panels, no\n' +
-    '  caption bar, no identity card, no filename strip, no borders, no text\n' +
-    '  overlay, and no second person.\n\n' +
+    '  brand mark anywhere on the clothing, gloves, shorts, wraps or props' +
+    (refL
+      ? '.\n' +
+        '  The background is reproduced exactly as in the reference photograph,\n' +
+        '  including any signage, banners, lettering, brand marks, vehicles and\n' +
+        '  passers-by that appear in it. Do not clean it up, do not blank it out.\n' +
+        '  The subject is physically present in that place: her feet in contact\n' +
+        '  with the ground, her shadow falling in the same direction, length and\n' +
+        '  softness as the shadows already in the scene, the light on her face and\n' +
+        '  clothing coming from the same direction and colour temperature as the\n' +
+        '  light in the background, her size matching the scale marker named above,\n' +
+        '  and the same lens and depth of field across subject and background. She\n' +
+        '  is not a cut-out and not composited: no hard outline, no halo, no colour\n' +
+        '  shift at the edge of her body.\n'
+      : ',\n' +
+        '  and no writing, signage, banner or lettering anywhere in the background.\n') +
+    '  This is one single photograph taken with a camera, not a character sheet,\n' +
+    '  not a contact sheet, not a grid, not a collage, not a lookbook page, and\n' +
+    '  not a form, dashboard, infographic, style board, mood board, spec sheet\n' +
+    '  or user interface of any kind. No panels, no caption bar, no identity\n' +
+    '  card, no filename strip, no borders, no text overlay, no dropdown menus,\n' +
+    '  no input fields, no icons, no colour swatches and no side panel.\n' +
+    (refL
+      ? '  One main subject only; other people may appear in the background as\n' +
+        '  unrelated passers-by exactly as in the reference photograph.\n\n'
+      : '  No second person.\n\n') +
     'BLOK 9 BERISI PROMPT YANG SUDAH DIISI — BUKAN KERANGKANYA\n' +
     'Yang ditulis di blok 9 adalah hasil akhir setiap prompt: seluruh slot\n' +
     'sudah diganti isi sebenarnya, Master Descriptor sudah tersalin utuh di\n' +
@@ -3110,6 +3161,11 @@ function cetakBiru(f, adaPose, adaProduk) {
     '  - tulisan FOTO KANON, CHARACTER SHEET, SET EKSPRESI, BEFORE, atau\n' +
     '    nomor panel\n' +
     '  - deretan close-up mata, bibir, telinga, atau belakang kepala\n' +
+    '  - formulir, dasbor, infografik, style board, atau tangkapan layar\n' +
+    '    antarmuka — lengkap dengan kotak isian, menu, ikon, atau kotak warna.\n' +
+    '    Ini yang keluar kalau brief ini sendiri ikut terkirim ke alat gambar:\n' +
+    '    alat gambar menggambar FORMULIRNYA, bukan orangnya. Yang sampai ke alat\n' +
+    '    gambar HANYA hasil isian CETAK BIRU, tidak pernah brief ini.\n' +
     '  - latar atau busana yang tidak ada di brief ini\n' +
     'Kalau salah satu muncul: sebutkan bahwa alat gambar mengembalikan lembar,\n' +
     'bukan foto look, lalu BERHENTI. Jangan mencoba memotong lembarnya.\n\n'
@@ -3375,9 +3431,12 @@ DAFTAR PERIKSA — CETAK PER LOOK, CENTANG SEBELUM LANJUT KE LOOK BERIKUTNYA
 [ ] lebar bahu, panjang leher, kedalaman kulit, undertone disebut ulang
 [ ] rambut wajah, asimetri, garis rambut, dan bentuk kelopak mata disebut
 [ ] gambar ini SATU foto tunggal — bukan kisi, panel, kolase, atau lembar
-[ ] tidak ada teks, label, atau nomor di dalam gambar — termasuk di busana,
-    properti, papan nama, poster, dan dinding di latar
-[ ] latar dan pencahayaan SAMA PERSIS dengan look sebelumnya — sudut ruang yang
+[ ] gambar ini FOTO hasil kamera — bukan formulir, dasbor, infografik, style
+    board, atau tangkapan layar antarmuka
+[ ] tidak ada teks, label, atau nomor pada BUSANA maupun PROPERTI
+` + (refL
+      ? '[ ] latar disalin apa adanya dari foto acuan — papan nama, tulisan, logo,\n    kendaraan, dan orang yang lewat IKUT, tidak dibersihkan\n[ ] tokoh menyatu dengan latar: kaki menapak, arah bayangan dan arah cahaya\n    sama dengan latar, tidak terlihat seperti tempelan\n'
+      : '[ ] tidak ada teks, label, atau nomor di latar — papan nama, poster, dinding\n') + `[ ] latar dan pencahayaan SAMA PERSIS dengan look sebelumnya — sudut ruang yang
     sama, arah cahaya yang sama. Bukan sekadar tempat yang sama
 [ ] framing sesuai yang diminta: ` + f.frame + ` — ` + Q.frame[f.frame_v] + `
 ` +
@@ -3410,7 +3469,7 @@ DAFTAR PERIKSA — CETAK PER LOOK, CENTANG SEBELUM LANJUT KE LOOK BERIKUTNYA
 `KALAU ADA YANG TIDAK TERCENTANG: perbaiki look itu sekarang, sebelum
 melanjutkan ke look berikutnya. Jangan lanjut lalu melapor di akhir.
 
-` + cetakBiru(f, poseAktif, produkAktif) + blokKeluaran(f, jml) + `
+` + cetakBiru(f, poseAktif, produkAktif, refL) + blokKeluaran(f, jml) + `
 Nol tabel, nol daftar, nol spesifikasi, nol prompt, nol keterangan busana, nol
 penjelasan, nol kalimat pembuka maupun penutup.
 
@@ -3449,7 +3508,12 @@ ATURAN KERAS
 - Sebut ulang lebar bahu, panjang leher, kedalaman kulit, dan undertone di
   setiap prompt.
 - Motif berskala besar saja, maksimal satu potongan bermotif per look.
-- Tokoh fiktif hasil AI. Tanpa merek dagang pihak ketiga.
+- Tokoh fiktif hasil AI. Tanpa merek dagang pihak ketiga pada busana, properti,
+maupun aksesori yang dipakai tokoh.` + (refL
+      ? `
+Merek dan tulisan yang MEMANG ADA di foto latar acuan bukan pelanggaran baris
+ini — itu bagian dari tempatnya, dan saya yang memilih tempat itu.`
+      : ``) + `
 === AKHIR BRIEF ===`
   );
 }
