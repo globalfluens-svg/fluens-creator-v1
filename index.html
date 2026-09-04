@@ -2086,7 +2086,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
   },
 ];
 const bc={id:"m2",tab:"02 · TAMPILAN",title:["Atur seluruh ","identitas visual",", dari gaya dan busana sampai material, rias, latar, dan pencahayaan, agar setiap look terasa konsisten."],control:"select",panelTitle:"Brief Style",ctaLabel:"Buka di TAMPILAN",sections:vc(fs)},gs=()=>xc(fs);
-const KODE_GERBANG = 'GAYA-J8SV-6N24';
+const KODE_GERBANG = 'GAYA-K5ZB-8M13';
 
 /* Dua frasa tanda kehidupan yang disuntik di mode referensi — tidak
    terbaca dari foto, dan pilihannya tidak kritis, jadi tanpa UI. */
@@ -3260,12 +3260,22 @@ Rinciannya ada di bagian INSTRUKSI paling bawah.
 `
     : '') + `JUMLAH LOOK — ANGKANYA MENGIKAT
 Set ini berisi TEPAT ` + jml + ` look. Bukan lebih, bukan kurang.
-Hitung sebelum menampilkan: kalau lembar atau galeri yang kamu hasilkan
+` + (f.keluaran_v === 'bertahap'
+      ? `Angka ` + jml + ` itu RENCANA, bukan jumlah gambar giliran ini dan bukan
+jumlah panel. Giliran ini SATU gambar, satu orang, satu bingkai penuh.
+Kalau yang kamu hasilkan berupa lembar, galeri, kisi, kolase, atau gambar
+berisi lebih dari satu bingkai foto — berapa pun panelnya — itu GAGAL.
+Lembar berpanel ` + jml + ` BUKAN keluaran yang benar di mode ini, dan lembar
+berpanel berapa pun juga bukan. Buang, lalu ulangi sebagai SATU foto.
+Rinciannya di INSTRUKSI paling bawah. Kalau bagian ini dan bagian itu
+terasa berbeda, INSTRUKSI paling bawah yang menang.
+`
+      : `Hitung sebelum menampilkan: kalau lembar atau galeri yang kamu hasilkan
 memuat jumlah panel yang berbeda dari ` + jml + `, itu GAGAL — buang dan ulangi
 dengan jumlah yang benar. Jangan menambah look "bonus", jangan membulatkan
 ke angka yang lebih enak dibagi, dan jangan membuat lembar kedua dengan
 jumlah berbeda.
-Nomor look berjalan 1 sampai ` + jml + `, berurutan, tidak dobel, tidak loncat.
+`) + `Nomor look berjalan 1 sampai ` + jml + `, berurutan, tidak dobel, tidak loncat.
 
 ` + (ref ? blokJenisBusana() + '\n' : '') + blokProduk(f, refL, pakaiPreset) + blokPose(f, jml, refL, pakaiPreset) + `SATU TOKOH = SATU CHAT BARU — PERIKSA SEBELUM MULAI
 Chat ini harus kosong sebelum brief ini ditempel. Kalau di sini sudah ada
