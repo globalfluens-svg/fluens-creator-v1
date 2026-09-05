@@ -2086,7 +2086,7 @@ Sisanya diperiksa dengan daftar sepuluh titik di ATURAN OUTPUT.
   },
 ];
 const bc={id:"m2",tab:"02 · TAMPILAN",title:["Atur seluruh ","identitas visual",", dari gaya dan busana sampai material, rias, latar, dan pencahayaan, agar setiap look terasa konsisten."],control:"select",panelTitle:"Brief Style",ctaLabel:"Buka di TAMPILAN",sections:vc(fs)},gs=()=>xc(fs);
-const KODE_GERBANG = 'GAYA-K5ZB-8M13';
+const KODE_GERBANG = 'GAYA-M2QF-9T70';
 
 /* Dua frasa tanda kehidupan yang disuntik di mode referensi — tidak
    terbaca dari foto, dan pilihannya tidak kritis, jadi tanpa UI. */
@@ -2933,6 +2933,10 @@ function blokLatarReferensi(f) {
     'dibersihkan; yang saya minta adalah tempat itu, bukan versi polosnya.\n' +
     'Yang TIDAK boleh diambil dari foto ini hanya wajah dan busana orang di\n' +
     'dalamnya — tokoh saya memakai wajah dari FOTO KANON dan busana dari brief.\n' +
+    'Ini titik gagal yang sudah terbukti: kalau orang di foto latar memakai\n' +
+    'seragam, lanyard, atau kartu ID, alat gambar akan memakaikannya juga ke\n' +
+    'tokoh saya. Larangan berbahasa Indonesia ini TIDAK sampai ke alat gambar,\n' +
+    'jadi kalimat Inggris di CETAK BIRU yang menahannya — jangan dibuang.\n' +
     'Kalimat itu jadi LATAR FINAL. Setelah ditulis, jangan lihat gambarnya lagi.\n' +
     'Tulis kalimat ini di blok 6 baris "Latar tempat".\n\n' +
     'PENYATUAN TOKOH DENGAN LATAR — SATU KALIMAT LAGI, WAJIB\n' +
@@ -3128,6 +3132,11 @@ function cetakBiru(f, adaPose, adaProduk, refL) {
         '  The background is reproduced exactly as in the reference photograph,\n' +
         '  including any signage, banners, lettering, brand marks, vehicles and\n' +
         '  passers-by that appear in it. Do not clean it up, do not blank it out.\n' +
+        '  Her own clothing, footwear and accessories come ONLY from the wardrobe\n' +
+        '  described above. Do not copy any garment, uniform, staff shirt, jacket,\n' +
+        '  lanyard, ID badge, cap, bag or logo worn by the people in the reference\n' +
+        '  photograph onto her. Those brand marks stay on the background and on\n' +
+        '  other people, never on her body.\n' +
         '  The subject is physically present in that place: her feet in contact\n' +
         '  with the ground, her shadow falling in the same direction, length and\n' +
         '  softness as the shadows already in the scene, the light on her face and\n' +
@@ -3445,7 +3454,7 @@ DAFTAR PERIKSA — CETAK PER LOOK, CENTANG SEBELUM LANJUT KE LOOK BERIKUTNYA
     board, atau tangkapan layar antarmuka
 [ ] tidak ada teks, label, atau nomor pada BUSANA maupun PROPERTI
 ` + (refL
-      ? '[ ] latar disalin apa adanya dari foto acuan — papan nama, tulisan, logo,\n    kendaraan, dan orang yang lewat IKUT, tidak dibersihkan\n[ ] tokoh menyatu dengan latar: kaki menapak, arah bayangan dan arah cahaya\n    sama dengan latar, tidak terlihat seperti tempelan\n'
+      ? '[ ] latar disalin apa adanya dari foto acuan — papan nama, tulisan, logo,\n    kendaraan, dan orang yang lewat IKUT, tidak dibersihkan\n[ ] tokoh menyatu dengan latar: kaki menapak, arah bayangan dan arah cahaya\n    sama dengan latar, tidak terlihat seperti tempelan\n[ ] busana tokoh dari brief, BUKAN dari orang di foto latar — tidak ada\n    seragam, lanyard, kartu ID, atau logo yang menular ke badannya\n'
       : '[ ] tidak ada teks, label, atau nomor di latar — papan nama, poster, dinding\n') + `[ ] latar dan pencahayaan SAMA PERSIS dengan look sebelumnya — sudut ruang yang
     sama, arah cahaya yang sama. Bukan sekadar tempat yang sama
 [ ] framing sesuai yang diminta: ` + f.frame + ` — ` + Q.frame[f.frame_v] + `
